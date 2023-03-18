@@ -1,0 +1,159 @@
+﻿:root {
+    --bg-r: 30;
+    --bg-g: 30;
+    --bg-b: 30;
+    --txt: #ffffff;
+    --offset1: 10;
+    --offset2: 50;
+}
+
+.change-theme {
+    --bg-r: 255;
+    --bg-g: 255;
+    --bg-b: 255;
+    --txt: #000000;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+    font-family: Spartan,sans-serif; /*Poppins,sans-serif;*/
+    color: var(--txt);
+}
+
+.nav-side-bar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.main-content {
+    transition: margin-left .5s;
+}
+
+.top-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-logo {
+    padding: 3px;
+    border-radius: 15px;
+    color: var(--txt);
+    text-decoration: none;
+    font-size: 35px;
+    font-family: cursive;
+    transition: background-color .5s;
+    
+
+}
+    .home-logo:hover {
+        text-decoration: none;
+        color: var(--txt);
+        background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+    }
+
+#nav-side-toggler {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 25px;
+    transition: background-color .5s;
+
+}
+
+    #nav-side-toggler:hover {
+        background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+    }
+
+.nav-search .fa{
+    font-size: 20px;
+    align-content: end;
+}
+
+#search-txt {
+    margin-left: 10px;
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
+    height: 70%;
+    border-radius: 15px;
+    width: 40%;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    transition: width .3s ease-out, border .3s
+}
+
+    #search-txt:focus {
+        width: 85%;
+    }
+
+.user-menu {
+    text-decoration: none;
+    color: var(--txt);
+    float: right;
+    font-size: 70px;
+    padding: 10px;
+    border-radius: 15px;
+    transition: background-color .5s;
+}
+
+    .user-menu:hover {
+        text-decoration: none;
+        color: var(--txt);
+        background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+    }
+
+.side-nav-bar container{
+    margin-left: 30px;
+}
+
+.side-nav-content {
+    text-decoration: none;
+    color: var(--txt);
+    padding: 10px;
+    border-radius: 15px;
+    transition: background-color .5s;
+    font-weight: 600;
+}
+
+    .side-nav-content:hover {
+        text-decoration: none;
+        color: var(--txt);
+        background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+    }
+
+.nav-side-bar ul {
+    list-style-type: none;
+}
+
+.nav-side-bar li{
+    margin: 20px auto 20px auto;
+}
+
+.side-nav-titles {
+    font-size: 18px;
+}
+
+.side-nav-opt {
+    padding: 5px;
+    border-radius: 20px;
+    width: 20%;
+    font-size: 17px;
+    transition: background-color .5s;
+}
+
+    .side-nav-opt:hover {
+        background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+    }

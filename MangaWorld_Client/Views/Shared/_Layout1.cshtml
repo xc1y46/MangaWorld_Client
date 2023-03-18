@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MangaWorld</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/resources/css/layout_style.css" rel="stylesheet" />
+</head>
+<script>
+    $(document).ready(function () {
+        $('#nav-side-toggler').click(function () {
+            if ($('.nav-side-bar').width() > 0) {
+                $('.nav-side-bar').width(0);
+                $('.main-content').css("margin-left", 0);
+            } else {
+                $('.nav-side-bar').width('14%');
+                $('.main-content').css("margin-left", "10%");
+            }
+        });
+        $('#dark-mode-toggler').click(function () {
+            document.body.classList.toggle("change-theme");
+        });
+    });
+</script>
+<body>
+    <div>
+        <div class="nav-side-bar">
+            <nav class="container">
+                <b class="side-nav-titles">NAVIGATION</b>
+                <ul>
+                    <li>
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "side-nav-content" })
+                        <i class="glyphicon glyphicon-home"></i>
+                    </li>
+                    <li>
+                        @Html.ActionLink("Popular", "Index", "Home", null, new { @class = "side-nav-content" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Recently Added", "Index", "Home", null, new { @class = "side-nav-content" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Groups", "Index", "Home", null, new { @class = "side-nav-content" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Search", "Index", "Home", null, new { @class = "side-nav-content" })
+                    </li>
+                    <li>
+                        @Html.ActionLink("Random", "Index", "Home", null, new { @class = "side-nav-content" })
+                    </li>
+                </ul>
+                <br />
+
+                <b class="side-nav-titles">OPTIONS</b>
+                <br />
+                <ul>
+                    <li>
+                        <div class="side-nav-opt" id="dark-mode-toggler">
+                            <i class="fa fa-adjust"></i>
+                            <span>Dark/light theme</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="side-nav-opt" id="reading-mode">
+                            <i class="fa fa-book"></i>
+                            <span name="readingMode">Long Strip</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <br />
+                <b class="side-nav-titles">ABOUT US</b>
+                <ul>
+                    <li>
+                        <i class="fa fa-google"></i>
+                        <b>mangaworld@gmail.com</b>
+                    </li>
+                    <li>
+                        <i class="fa fa-twitter"></i>
+                        <b>twitter.com/mangaworld</b>
+                    </li>
+                    <li>
+                        <i class="fa fa-facebook"></i>
+                        <b>www.facebook.com/mangaworld72</b>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container-fluid main-content">
+            <header class="container">
+                <nav class="row top-nav">
+                    <div class="col-md-6">
+                        <i id="nav-side-toggler" class="fa fa-bars"></i>
+                        @Html.ActionLink("MangaWorld", "Index", "Home", null, new { @class = "home-logo", @style = "margin-top: 20px;" })
+                    </div>
+                    <div class="col-md-6 nav-search">
+                        <i class="fa fa-search"></i>
+                        <input id="search-txt" type="text" placeholder="Search" />
+                        <a href="Index" class="fa fa-user-circle user-menu"></a>
+                    </div>
+                </nav>
+            </header>
+            <main class="container">
+                <div>
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
