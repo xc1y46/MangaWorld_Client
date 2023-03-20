@@ -745,12 +745,12 @@ INSERT INTO Chapter(MangaId, ChapterOrder, PageNum, ChapterPath, ChapterTitle, C
 (N'M_EN_WondrWomen', 3, 23, N'\WWchapter3', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
 (N'M_EN_WondrWomen', 4, 21, N'\WWchapter4', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
 
-(N'M_JP_Higehiro_Nov', 1, 1, N'\HGchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-08-02' AS DateTime), 1),
+(N'M_JP_Higehiro_Nov', 1, 282, N'\HGchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-08-02' AS DateTime), 1),
 
-(N'M_JP_GoblinSlay_Nov', 1, 1, N'\GBchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-03-12' AS DateTime), 1),
+(N'M_JP_GoblinSlay_Nov', 1, 307, N'\GBchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-03-12' AS DateTime), 1),
 
-(N'M_JP_FiveCenti_Nov', 1, 1, N'\FCchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-07-26' AS DateTime), 1),
+(N'M_JP_FiveCenti_Nov', 1, 212, N'\FCchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-07-26' AS DateTime), 1),
 
-(N'M_JP_Anohana_Nov', 1, 1, N'\ANchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-12-04' AS DateTime), 1)
+(N'M_JP_Anohana_Nov', 1, 143, N'\ANchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-12-04' AS DateTime), 1)
 
 GO
