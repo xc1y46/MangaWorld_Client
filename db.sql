@@ -1,4 +1,4 @@
-﻿USE master
+USE master
 GO
 
 IF DB_ID('Project4DB') IS NOT NULL
@@ -186,6 +186,7 @@ INSERT INTO ChapterType(ChapterTypeId, ChapterTypeName) VALUES
 (N'END', N'End chapter')
 
 INSERT INTO Genre(GenreId, GenreDescription, GenreLevel) VALUES
+(N'NOVEL', N'Consist of mostly words paragraph and either none or very little illustrations', 2),
 (N'SHOUNEN', N'Targeted at teens and teen boys, sharing common themes of action, adventure', 1),
 (N'SHOUJO', N'Targeted at teen girls with romances and drama themes', 1),
 (N'KODOMOMUKE', N'Targeted at young children which mostly contains cutesy, moraltisc and fun themes', 1),
@@ -332,6 +333,28 @@ N'William Moulton Marston, also known by the pen name Charles Moulton, was an Am
 (N'AU_EN_Herge', N'Herge',
 NULL,
 N'Georges Prosper Remi (22 May 1907 – 3 March 1983), known by the pen name Hergé, from the French pronunciation of his reversed initials RG, was a Belgian cartoonist. He is best known for creating The Adventures of Tintin, the series of comic albums which are considered one of the most popular European comics of the 20th century. He was also responsible for two other well-known series, Quick & Flupke (1930–1940) and The Adventures of Jo, Zette and Jocko (1936–1957). His works were executed in his distinctive ligne claire drawing style'
+),
+
+(N'AU_JP_OkadaMari', N'Okada Mari',
+N'https://www.instagram.com/marumari_chen',
+N'Okada Mari is a Japanese screenwriter, director and manga artist. She is one of the most prolific writers currently working in the anime industry. She won the 16th Animation Kobe Award.'
+),
+
+(N'AU_JP_MakoShinkai', N'Makoto Shinkai',
+N'https://twitter.com/shinkaimakoto*https://www.instagram.com/makoto.shinkai',
+N'Makoto Niitsu, known as Makoto Shinkai, is a Japanese animator, filmmaker, author, and manga artist.
+
+Shinkai began his career as a video game animator with Nihon Falcom in 1996, and gained recognition as a filmmaker with the release of the original video animation (OVA) She and Her Cat (1999). Beginning his longstanding association with CoMix Wave Films, Shinkai then released the science-fiction OVA Voices of a Distant Star in 2002, and followed this with his debut feature film The Place Promised in Our Early Days (2004).'
+),
+
+(N'AU_JP_KumoKagyu', N'Kumo Kagyu',
+NULL,
+N'Kumo Kagyu is known for Goblin Slayer: Goblin''s Crown (2020) and Goblin Slayer (2018).'
+),
+
+(N'AU_JP_Shimesaba', N'Shimesaba',
+N'https://twitter.com/shimesaba_novel',
+NULL
 )
 
 INSERT INTO Manga(MangaId, Title, AltTitle, MangaPath, AuthorId, LanguageId, [Status], ReleasedYear, IsPublished, Genres, Summary) VALUES
@@ -451,6 +474,26 @@ N'Following the storyline of Wonder Women, a founding member of the Justice Leag
 (N'M_EN_TinTinBlckGold', N'Land of Black Gold', N'Tin tin in the Land of Black Gold', N'\TinTin_Black_Gold', N'AU_EN_Herge', N'VN', N'CANC', N'1939', 1,
 N'ACTION*COMEDY*DRAMA*MYSTERY',
 N'Land of Black Gold is the fifteenth volume of The Adventures of Tintin, the comics series by Belgian cartoonist Hergé. Set on the eve of a European war, the plot revolves around the attempts of young Belgian reporter Tintin to uncover a militant group responsible for sabotaging oil supplies in the Middle East.'
+),
+
+(N'M_JP_Anohana_Nov', N': The Flower We Saw That Day', N'Anohana', N'\Anohana_Nov', N'AU_JP_OkadaMari', N'EN', N'COMP', N'2011', 1,
+N'NOVEL*ROMANCE*DRAMA*SLICE OF LIFE*FANTASY',
+N'Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past.'
+),
+
+(N'M_JP_FiveCenti_Nov', N'5 Centimeters per Second', N'Byosoku Go Senchimetoru', N'\Five_Centimeter_Nov', N'AU_JP_MakoShinkai', N'EN', N'COMP', N'2007', 1,
+N'NOVEL*AWARD WINNING*ROMANCE*DRAMA*SLICE OF LIFE*SEINEN',
+N'The first novel written by Makoto Shinkai. Consisting of three segments, the story is set in Japan, beginning in the early 1990s up until the present day (2008), with each act centered on a boy named Takaki Tōno , each following a period in his life and his relationships with the girls around him.'
+),
+
+(N'M_JP_GoblinSlay_Nov', N'Goblin Slayer', N'GoblinSlayer', N'\Goblin_Slayer_Nov', N'AU_JP_KumoKagyu', N'EN', N'GO', N'2016', 1,
+N'NOVEL*FANTASY*SHOUNEN*GORE*ACTION*SUGGESTIVE*ADVENTURE*HAREM*HORROR',
+N'In a world of fantasy, adventurers come from far and wide to join the Guild. They complete contracts to earn gold and glory. An inexperienced priestess joins her first adventuring party, but comes into danger after her first contract involving goblins goes wrong. As the rest of her party is either wiped out or taken out of commission, she is saved by a man known as Goblin Slayer, an adventurer whose only purpose is the eradication of goblins with extreme prejudice.'
+),
+
+(N'M_JP_Higehiro_Nov', N'After Being Rejected, I Shaved and Took in a High School Runaway', N'Higehiro', N'\Higehiro_Nov', N'AU_JP_Shimesaba', N'EN', N'GO', N'2017', 1,
+N'NOVEL*SEINEN*SUGGESTIVE*HAREM*ROMANCE*DRAMA',
+N'Young handsome salaryman Yoshida had finally gathered up the courage to confess his feelings for his employer and longtime crush Airi Gotou. Sadly though, he ended up rejected and goes out drinking with his co-worker/best friend Hashimoto to relieve himself of his sorrows. While heading back home in a drunken state, he meets Sayu Ogiwara, a teenage high school girl who asks to spend the night with him. He lets her in out of pity and because he is too exhausted to argue, saying to himself that he will chase her out tomorrow. The next day now sobered up, Yoshida asks Sayu how she ended up at his apartment: she reveals that she had run away from her family and home in Hokkaido and has been prostituting herself to random men in exchange for a place to stay. Now knowing her backstory, Yoshida feeling bad for her finds himself unable to kick her out of his house and their time of living together begins.'
 )
 
 INSERT INTO ScanTeam(ScanTeamId, TeamName, TeamSocials, LanguageId) VALUES
@@ -466,7 +509,8 @@ INSERT INTO ScanTeam(ScanTeamId, TeamName, TeamSocials, LanguageId) VALUES
 (N'SC_VN_Manhuavn', N'manhuavn.com', N'https://manhuavn.com', N'VN'),
 (N'SC_VN_FallenAngels', N'Fallen Angels', N'https://www.facebook.com/FallenAngelsMATG', N'VN'),
 (N'SC_VN_Vnsharing', N'naruto.vnsharing.net', N'https://naruto.vnsharing.net', N'VN'),
-(N'SC_VN_Vnzoom', N'VN Zoom team', N'VN-Zoom.com', N'VN')
+(N'SC_VN_Vnzoom', N'VN Zoom team', N'VN-Zoom.com', N'VN'),
+(N'SC_EN_mp4directs', N'mp4directs.com', N'mp4directs.com', N'EN')
 
 INSERT INTO Chapter(MangaId, ChapterOrder, PageNum, ChapterPath, ChapterTitle, ChapterTypeId, ScanTeamId, UploadDate, IsPublished) VALUES
 (N'M_JP_AoAshi', 1, 62, N'\AAchapter1', N'First Touch', N'NORM', N'SC_VN_SportVn', CAST(N'2022-08-04' AS DateTime), 1),
@@ -699,6 +743,14 @@ INSERT INTO Chapter(MangaId, ChapterOrder, PageNum, ChapterPath, ChapterTitle, C
 (N'M_EN_WondrWomen', 1, 26, N'\WWchapter1', N'God draws blood', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
 (N'M_EN_WondrWomen', 2, 20, N'\WWchapter2', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
 (N'M_EN_WondrWomen', 3, 23, N'\WWchapter3', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
-(N'M_EN_WondrWomen', 4, 21, N'\WWchapter4', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1)
+(N'M_EN_WondrWomen', 4, 21, N'\WWchapter4', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
+
+(N'M_JP_Higehiro_Nov', 1, 1, N'\HGchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-08-02' AS DateTime), 1),
+
+(N'M_JP_GoblinSlay_Nov', 1, 1, N'\GBchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-03-12' AS DateTime), 1),
+
+(N'M_JP_FiveCenti_Nov', 1, 1, N'\FCchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-07-26' AS DateTime), 1),
+
+(N'M_JP_Anohana_Nov', 1, 1, N'\ANchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-12-04' AS DateTime), 1)
 
 GO
