@@ -3,8 +3,10 @@
     --bg-g: 30;
     --bg-b: 30;
     --txt: #ffffff;
+    --txtCounter: #000000;
     --offset1: 10;
     --offset2: 50;
+    --mainCol: #8D24A9;
 }
 
 .change-theme {
@@ -12,30 +14,68 @@
     --bg-g: 255;
     --bg-b: 255;
     --txt: #000000;
+    --txtCounter: #ffffff;
+}
+
+.fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.flag-VN {
+    content: url("/resources/picture/VN.png");
+}
+
+.flag-EN {
+    content: url("/resources/picture/EN.png");
+}
+
+.flag-CN {
+    content: url("/resources/picture/CN.png");
+}
+
+.genre-level-1 {
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
+}
+
+.genre-level-2 {
+    background-color: #eb5a00;
+}
+
+.genre-level-3 {
+    background-color: #fc033d;
+}
+
+.comic-page-size-adj {
+    object-fit: cover;
 }
 
 * {
     box-sizing: border-box;
     padding: 0;
+    font-family: /*Spartan,sans-serif;*/ Poppins,sans-serif;
 }
 
 body {
     background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
-    font-family: Spartan,sans-serif; /*Poppins,sans-serif;*/
     color: var(--txt);
+    transition: background-color .5s;
 }
 
 .nav-side-bar {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     left: 0;
     background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    
 }
 
 .main-content {
@@ -43,9 +83,18 @@ body {
 }
 
 .top-nav {
+    margin: 5px auto 5px auto;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.layout-head {
+    z-index: 1;
+    background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+    border-bottom: 2px solid var(--mainCol);
+    transition: background-color .5s;
+    margin-bottom: 10px;
 }
 
 .home-logo {
@@ -59,6 +108,7 @@ body {
     
 
 }
+
     .home-logo:hover {
         text-decoration: none;
         color: var(--txt);
@@ -66,23 +116,23 @@ body {
     }
 
 #nav-side-toggler {
-    padding: 10px;
+    border: 2px solid rgb(var(--bg-r), var(--bg-g), var(--bg-b));
+    padding: 8px;
     border-radius: 15px;
     font-size: 25px;
-    transition: background-color .5s;
-
+    transition: background-color .5s, border .5s;
 }
 
     #nav-side-toggler:hover {
         background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+        border: 2px solid var(--mainCol);
     }
 
 .nav-search .fa{
     font-size: 20px;
-    align-content: end;
 }
 
-#search-txt {
+.search-txt {
     margin-left: 10px;
     background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
     height: 70%;
@@ -95,7 +145,7 @@ body {
     transition: width .3s ease-out, border .3s
 }
 
-    #search-txt:focus {
+    .search-txt:focus {
         width: 85%;
     }
 
@@ -115,10 +165,6 @@ body {
         background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
     }
 
-.side-nav-bar container{
-    margin-left: 30px;
-}
-
 .side-nav-content {
     text-decoration: none;
     color: var(--txt);
@@ -126,6 +172,7 @@ body {
     border-radius: 15px;
     transition: background-color .5s;
     font-weight: 600;
+    font-size: 17px;
 }
 
     .side-nav-content:hover {
@@ -144,9 +191,11 @@ body {
 
 .side-nav-titles {
     font-size: 18px;
+    border-bottom: 4px solid var(--mainCol);
 }
 
 .side-nav-opt {
+    font-weight: 600;
     padding: 5px;
     border-radius: 20px;
     width: 20%;

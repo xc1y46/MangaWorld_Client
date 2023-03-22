@@ -8,23 +8,8 @@
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/resources/css/layout_style.css" rel="stylesheet" />
+    <script src="~/resources/javascript/layout_script.js"></script>
 </head>
-<script>
-    $(document).ready(function () {
-        $('#nav-side-toggler').click(function () {
-            if ($('.nav-side-bar').width() > 0) {
-                $('.nav-side-bar').width(0);
-                $('.main-content').css("margin-left", 0);
-            } else {
-                $('.nav-side-bar').width('14%');
-                $('.main-content').css("margin-left", "10%");
-            }
-        });
-        $('#dark-mode-toggler').click(function () {
-            document.body.classList.toggle("change-theme");
-        });
-    });
-</script>
 <body>
     <div>
         <div class="nav-side-bar">
@@ -65,7 +50,19 @@
                     <li>
                         <div class="side-nav-opt" id="reading-mode">
                             <i class="fa fa-book"></i>
-                            <span name="readingMode">Long Strip</span>
+                            <span name="readingMode">Long strip</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="side-nav-opt" id="reading-mode">
+                            <i class="fa fa-list"></i>
+                            <span name="pageNum">Page numbers</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="side-nav-opt" id="reading-mode">
+                            <i class="fa fa-expand"></i>
+                            <span name="pageSize">Page size</span>
                         </div>
                     </li>
                 </ul>
@@ -90,23 +87,23 @@
         </div>
 
         <div class="container-fluid main-content">
-            <header class="container">
-                <nav class="row top-nav">
-                    <div class="col-md-6">
-                        <i id="nav-side-toggler" class="fa fa-bars"></i>
-                        @Html.ActionLink("MangaWorld", "Index", "Home", null, new { @class = "home-logo", @style = "margin-top: 20px;" })
-                    </div>
-                    <div class="col-md-6 nav-search">
-                        <i class="fa fa-search"></i>
-                        <input id="search-txt" type="text" placeholder="Search" />
-                        <a href="Index" class="fa fa-user-circle user-menu"></a>
-                    </div>
-                </nav>
-            </header>
+            <div class="container-fluid layout-head">
+                <header class="container">
+                    <nav class="row top-nav">
+                        <div class="col-md-6">
+                            <i id="nav-side-toggler" class="fa fa-bars"></i>
+                            @Html.ActionLink("MangaWorld", "Index", "Home", null, new { @class = "home-logo", @style = "margin-top: 20px;" })
+                        </div>
+                        <div class="col-md-6 nav-search">
+                            <i class="fa fa-search"></i>
+                            <input class="search-txt" type="text" placeholder="Search" />
+                            <a href="Index" class="fa fa-user-circle user-menu"></a>
+                        </div>
+                    </nav>
+                </header>
+            </div>
             <main class="container">
-                <div>
-                    @RenderBody()
-                </div>
+                @RenderBody()
             </main>
         </div>
     </div>

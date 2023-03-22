@@ -1,0 +1,85 @@
+﻿@model MangaWorld_Client.Models.Manga
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery + Model.MangaPath + Utils.CoverArt;
+    string[] titles = (string[])ViewData["AltTitle"];
+    List<Genre> genres = (List<Genre>)ViewData["Genres"];
+    List<byte> ratings = (List<byte>)ViewData["Rating"];
+    List<Comment> comments = (List<Comment>)ViewData["Comment"];
+    int bookmarks = (int)ViewData["Bookmark"];
+
+    float score = 0.0f;
+    if (ratings.Count > 0)
+    {
+        foreach (byte b in ratings)
+        {
+            score += b * 1.0f;
+        }
+        score /= ratings.Count;
+    }
+    var ratingDetail = ratings.GroupBy(x => x).ToDictionary(y => y.Key, y => y.Count()).OrderBy(x => x.Key);
+}
+<link href="~/resources/css/manga_style.css" rel="stylesheet" />
+
+<div class="container manga">
+    <div class="row manga-head">
+        <div class="col-md-3">
+            <img class="manga-cover-img" src="@path" alt="Cover" />
+        </div>
+        <div class="col-md-9">
+            <div class="manga-titles-area">
+                <p class="manga-title">
+                    <img class="manga-lang-flag flag-@Model.LanguageId" />
+                    @Model.Title
+                </p>
+                <br />
+                @foreach (string t in titles)
+                {
+                    <p class="manga-alt-title">
+                        <i>- @t</i>
+                    </p>
+                }
+            </div>
+            <br /><br />
+            <div class="manga-stats-area stat-rating">
+                <div class="rating-detail-tooltip">
+                    <ul>
+                        @foreach (var x in ratingDetail)
+                        {
+                            <li>
+                                <b>@x.Key <i class="manga-stat-item fa fa-star"></i>: @x.Value</b>
+                            </li>
+                            <hr />
+                        }
+                    </ul>
+                </div>
+                <i class="manga-stat-item fa fa-star">
+                    <span>@score.ToString("0.00")</span>
+                </i>
+                <i class="manga-stat-item fa fa-bookmark">
+                    <span>@bookmarks</span>
+                </i>
+                <i class="manga-stat-item fa fa-comment">
+                    <span>@comments.Count</span>
+                </i>
+                <b>PUBLICATION: @Model.ReleasedYear, </b>
+                <i>@Model.Status1.StatusName</i>
+            </div>
+            <br /><br />
+            <div class="manga-genre-area">
+                @foreach (Genre g in genres)
+                {
+                    <div>
+                        @Html.ActionLink(g.GenreId, "Index", "Genre", new { genreId = g.GenreId }, new { @class = "manga-genre " + "genre-level-" + g.GenreLevel })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row manga-body">
+
+    </div>
+</div>
