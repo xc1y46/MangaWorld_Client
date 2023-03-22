@@ -177,7 +177,7 @@ INSERT INTO [Status](StatusId, StatusName) VALUES
 (N'GO', N'Ongoing'),
 (N'COMP', N'Completed'),
 (N'HIA', N'Hiatus'),
-(N'CANC', N'Cancled')
+(N'CANC', N'Canceled')
 
 INSERT INTO ChapterType(ChapterTypeId, ChapterTypeName) VALUES
 (N'NORM', N'Normal chapter'),
@@ -193,7 +193,7 @@ INSERT INTO Genre(GenreId, GenreDescription, GenreLevel) VALUES
 (N'COMEDY', N'Cointains mostly of humor, satire and plain ridiculousness', 1),
 (N'SLICE OF LIFE', N'Thoughtful portrayals of real daily life along with moderate drama and usually comedy', 1),
 (N'FANTASY', N'Multitude of unique fantasy settings and universes outside of reality to explore', 1),
-(N'HORROR', N'Frights, chills and thrills abound in comics with creepy and suspense-building stories', 1),
+(N'HORROR', N'Frights, chills and thrills abound in comics with creepy and suspense-building stories', 2),
 (N'MYSTERY',N'Stories that focus on a puzzling crime, situation, or circumstance that needs to be solved', 1),
 (N'DRAMA',N'Themes that deals with serious, often negative, emotions', 1),
 (N'ACTION',N'High-octane thrillers that simply aim to give the reader an exciting ride', 1),
@@ -376,7 +376,7 @@ In 2021, the series won the 45th Kodansha Manga Awards in the shounen category.'
 ),
 
 (N'M_JP_CSM', N'Chainsaw Man', N'Chainsaw Man', N'\Chainsaw_Man', N'AU_JP_FujiTatsu', N'VN', N'GO',  N'2018', 1,
-N'AWARD WINNING*ACTION*SHOUNEN*COMEDY*HORROR*SUPERNATURAL',
+N'AWARD WINNING*GORE*ACTION*SHOUNEN*COMEDY*HORROR*SUPERNATURAL',
 N'Broke young man + chainsaw dog demon = Chainsaw Man!
 
 The name says it all! Denji''s life of poverty is changed forever when he merges with his pet chainsaw dog, Pochita! Now he''s living in the big city and an official Devil Hunter. But he''s got a lot to learn about his new job and chainsaw powers!'
@@ -398,7 +398,7 @@ N'In a land where there is no magic, a land where the strong make the rules and 
 ),
 
 (N'M_JP_DragBall', N'Dragon Ball', N'DragonBall', N'\Dragon_Ball', N'AU_JP_ToriAkira', N'VN', N'COMP',  N'1984', 1,
-N'SHOUNEN*AWARD WINNING*ACTION*COMEDY*FANTASY*SCI-FY*SPORT*MARTIAL ARTS*DRAMA*SLICE OF LIFE*SUGGESTIVE',
+N'SHOUNEN*AWARD WINNING*ACTION*COMEDY*FANTASY*SCI-FY*SPORT*MARTIAL ARTS*DRAMA*SLICE OF LIFE*SUGGESTIVE*GORE',
 N'Dragon Ball follows the adventures of Goku from his childhood through adulthood as he trains in martial arts and explores the world in search of the seven mystical orbs known as the Dragon Balls, which can summon a wish-granting dragon when gathered. Along his journey, Goku makes several friends and battles a wide variety of villains, many of whom also seek the Dragon Balls for their own desires. Along the way becoming the strongest warrior in the universe'
 ),
 
@@ -432,8 +432,8 @@ N'Teikou Middle School is famous for its highly renowned basketball team, which 
 Taiga Kagami, having just returned from America, joins the basketball team at Seirin High School in search of strong team members. There, he finds Tetsuya Kuroko, a seemingly unimpressive player, only for Kagami to find out that Kuroko was the "Phantom Sixth Member" of the Generation of Miracles: an invisible player who used his impeccable passing skills to support the team from the shadows. Together, they resolve to defeat the Generation of Miracles and make the Seirin basketball team the best in Japan'
 ),
 
-(N'M_EN_LuckyLuke', N'Lucky Luke', N'Lucky Luke issues collection', N'\Lucky_Luke_39', N'AU_EN_Morris', N'VN', N'COMP', N'1946', 1,
-N'ACTION*COMEDY*',
+(N'M_EN_LuckyLuke', N'Lucky Luke', N'Lucky Luke issues collection', N'\Lucky_Luke', N'AU_EN_Morris', N'VN', N'COMP', N'1946', 1,
+N'ACTION*COMEDY',
 N'The series takes place in the American Old West of the United States. It stars the titular Lucky Luke, a street-smart gunslinger known as the "man who shoots faster than his shadow", and his intelligent horse Jolly Jumper. Lucky Luke is pitted against various villains, either fictional or inspired by American history or folklore'
 ),
 
@@ -466,7 +466,7 @@ N'GORE*SUPERHERO*ACTION*FANTASY*SCI-FY*SUGGESTIVE',
 N'"Planet Hulk" is a Marvel Comics storyline that ran primarily through issues of The Incredible Hulk starting in 2006. Written by Greg Pak, it dealt with the Marvel heroes''s decision to send the Hulk away, his acclimation to and conquest of the planet where he landed, and his efforts to return to Earth to take his revenge'
 ),
 
-(N'M_EN_WondrWomen', N'Wonder Women', N'Wonder Women', N'\Wonder_Women', N'AU_EN_CharlesMoulten', N'VN', N'GO', N'1941', 1,
+(N'M_EN_WondrWomen', N'Wonder Women', N'Wonder Women', N'\Wonder_Women', N'AU_EN_CharlesMoulten', N'VN', N'HIA', N'1941', 1,
 N'GORE*SUPERHERO*ACTION*FANTASY*DRAMA*TRAGEDY*SUGGESTIVE',
 N'Following the storyline of Wonder Women, a founding member of the Justice League from the DC comics universe'
 ),
@@ -476,7 +476,7 @@ N'ACTION*COMEDY*DRAMA*MYSTERY',
 N'Land of Black Gold is the fifteenth volume of The Adventures of Tintin, the comics series by Belgian cartoonist Hergé. Set on the eve of a European war, the plot revolves around the attempts of young Belgian reporter Tintin to uncover a militant group responsible for sabotaging oil supplies in the Middle East.'
 ),
 
-(N'M_JP_Anohana_Nov', N': The Flower We Saw That Day', N'Anohana', N'\Anohana_Nov', N'AU_JP_OkadaMari', N'EN', N'COMP', N'2011', 1,
+(N'M_JP_Anohana_Nov', N'Anohana: The Flower We Saw That Day', N'Anohana', N'\Anohana_Nov', N'AU_JP_OkadaMari', N'EN', N'COMP', N'2011', 1,
 N'NOVEL*ROMANCE*DRAMA*SLICE OF LIFE*FANTASY',
 N'Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past.'
 ),
@@ -752,5 +752,31 @@ INSERT INTO Chapter(MangaId, ChapterOrder, PageNum, ChapterPath, ChapterTitle, C
 (N'M_JP_FiveCenti_Nov', 1, 212, N'\FCchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-07-26' AS DateTime), 1),
 
 (N'M_JP_Anohana_Nov', 1, 143, N'\ANchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-12-04' AS DateTime), 1)
+
+INSERT INTO [User](UserName, UserPassword, Bookmarks) VALUES
+(N'Mark Dye', N'40bd001563085fc35165329ea1ff5c5ecbdbbeef',
+N'M_JP_CSM*M_JP_OPM*M_KR_GoHS'), --123
+(N'Dee mega', N'51eac6b471a284d3341d8c0c63d0f1a286262a18',
+N'M_JP_Higehiro_Nov*M_JP_Naruto*M_JP_Anohana_Nov'), --456
+(N'Xi jinping', N'fc1200c7a7aa52109d762a9f005b149abef01479',
+N'M_CN_DouLuo*M_CN_DouPo*M_JP_CSM*M_JP_OPM'), --789
+(N'Cing Billing', N'8abcda2dba9a5c5c674e659333828582122c5f56',
+N'M_JP_OPM*M_JP_GoblinSlay_Nov*M_JP_FiveCenti_Nov') --987
+
+INSERT INTO Rating(MangaId, UserId, Score) VALUES
+(N'M_JP_CSM', 1, 4),
+(N'M_JP_CSM', 3, 3),
+(N'M_JP_OPM', 3, 4),
+(N'M_JP_OPM', 2, 5),
+(N'M_JP_OPM', 4, 1),
+(N'M_KR_GoHS', 1, 2),
+(N'M_KR_GoHS', 3, 2),
+(N'M_JP_Higehiro_Nov', 2, 4),
+(N'M_JP_Naruto', 2, 3),
+(N'M_JP_Naruto', 3, 5),
+(N'M_JP_GoblinSlay_Nov', 2, 5),
+(N'M_JP_GoblinSlay_Nov', 4, 5),
+(N'M_JP_FiveCenti_Nov', 2, 2),
+(N'M_JP_Anohana_Nov', 2, 5)
 
 GO
