@@ -1,32 +1,21 @@
 ﻿@model MangaWorld_Client.Models.Manga
 @using MangaWorld_Client.Controllers;
 @using MangaWorld_Client.Models;
-
+@using PagedList.Mvc
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
     string path = Utils.Gallery + Model.MangaPath + Utils.CoverArt;
-    string[] titles = (string[])ViewData["AltTitle"];
     List<Genre> genres = (List<Genre>)ViewData["Genres"];
-    List<byte> ratings = (List<byte>)ViewData["Rating"];
-    List<Comment> comments = (List<Comment>)ViewData["Comment"];
-    int bookmarks = (int)ViewData["Bookmark"];
-
-    float score = 0.0f;
-    if (ratings.Count > 0)
-    {
-        foreach (byte b in ratings)
-        {
-            score += b * 1.0f;
-        }
-        score /= ratings.Count;
-    }
-    var ratingDetail = ratings.GroupBy(x => x).ToDictionary(y => y.Key, y => y.Count()).OrderBy(x => x.Key);
+    var chapters = (PagedList.IPagedList<Chapter>)ViewData["Chapter"];
+    bool sort = (bool)ViewData["ChapSortAsc"];
+    var ratingDetail = ((List<byte>)ViewData["Rating"]).GroupBy(x => x).ToDictionary(y => y.Key, y => y.Count()).OrderBy(x => x.Key);
+    float score = Utils.getRatingScore((List<byte>)ViewData["Rating"]);
 }
 <link href="~/resources/css/manga_style.css" rel="stylesheet" />
 
-<div class="container manga">
+<div class="container">
     <div class="row manga-head">
-        <div class="col-md-3">
+        <div class="col-md-3 manga-cover-area">
             <img class="manga-cover-img" src="@path" alt="Cover" />
         </div>
         <div class="col-md-9">
@@ -36,7 +25,7 @@
                     @Model.Title
                 </p>
                 <br />
-                @foreach (string t in titles)
+                @foreach (string t in Model.AltTitle.Split('*'))
                 {
                     <p class="manga-alt-title">
                         <i>- @t</i>
@@ -60,11 +49,13 @@
                     <span>@score.ToString("0.00")</span>
                 </i>
                 <i class="manga-stat-item fa fa-bookmark">
-                    <span>@bookmarks</span>
+                    <span>@Utils.getBookmarkCount(Model)</span>
                 </i>
-                <i class="manga-stat-item fa fa-comment">
-                    <span>@comments.Count</span>
+                <i class="manga-stat-item fa fa-comments">
+                    <span>@Model.Comment.Count</span>
                 </i>
+                &nbsp;
+                <i class="manga-pub-status status-@Model.Status fa fa-circle"></i>
                 <b>PUBLICATION: @Model.ReleasedYear, </b>
                 <i>@Model.Status1.StatusName</i>
             </div>
@@ -73,13 +64,99 @@
                 @foreach (Genre g in genres)
                 {
                     <div>
-                        @Html.ActionLink(g.GenreId, "Index", "Genre", new { genreId = g.GenreId }, new { @class = "manga-genre " + "genre-level-" + g.GenreLevel })
+                        @Html.ActionLink(g.GenreId, "Index", "Genres", new { genreId = g.GenreId }, new { @class = "manga-genre " + "genre-level-" + g.GenreLevel })
                     </div>
                 }
             </div>
         </div>
     </div>
-    <div class="row manga-body">
+    <div class="row manga-opt">
+        <button class="manga-opt-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = ViewData["FirstChap"] })'">Start Reading</button>
 
+        <button class="manga-opt-item">Bookmark</button>
+
+        <button class="manga-opt-item" id="manga-rate-btn">
+            <i class="fa fa-star"></i>
+        </button>
+
+        <button class="manga-opt-item">
+            <i class="fa fa-exclamation-triangle"></i>
+            Report
+        </button>
+    </div>
+    <div class="row manga-body">
+        <div class="row manga-summary-area">
+            <p>
+                <b>
+                    @Model.Summary
+                </b>
+            </p>
+        </div>
+        <div class="row manga-content-area">
+            <div class="col-md-3 manga-detail-area">
+                <h5 class="manga-detail-header">Author</h5>
+                @Html.ActionLink(Model.Author.AuthorName, "Index", "Author", new { authorId = Model.AuthorId }, new { @class = "manga-detail-item" })
+                <br /><br />
+                <h5 class="manga-detail-header">Language</h5>
+                @Html.ActionLink(Model.Language.LanguageName, "Search", "Home", new { langId = Model.LanguageId }, new { @class = "manga-detail-item" })
+                <br /><br />
+                <h5 class="manga-detail-header">Last update(m/d/y)</h5>
+                <span class="manga-detail-item">
+                    @chapters.OrderByDescending(c => c.UploadDate).FirstOrDefault().UploadDate.ToString("d")
+                </span>
+            </div>
+            <div class="col-md-9 manga-chapter-area">
+                @if (sort)
+                {
+                    <button id="chapter-sort" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, sortAsc = false })'">
+                        <span>
+                            Sort by descending
+                        </span>
+                    </button>
+                }
+                else
+                {
+                    <button id="chapter-sort" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, sortAsc = true })'">
+                        <span>
+                            Sort by ascending
+                        </span>
+                    </button>
+                }
+
+                <div class="manga-chapter">
+                    @foreach (Chapter c in chapters)
+                    {
+                        <button class="manga-chapter-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = c.MangaId, chapOrd = c.ChapterOrder })'">
+                            <div class="manga-chapter-item-left">
+                                <b>Chapter @c.ChapterOrder</b>
+                                <br />
+                                @if (String.IsNullOrEmpty(c.ChapterTitle))
+                                {
+                                    <span>Chapter @c.ChapterOrder</span>
+                                }
+                                else
+                                {
+                                    <span>@c.ChapterTitle</span>
+                                }
+                            </div>
+                            <div class="manga-chapter-item-right">
+                                <i class="fa fa-clock-o">
+                                </i>
+                                @c.UploadDate.ToString("d")
+                                <br />
+                                <i class="fa fa-users">
+                                </i>
+                                @Html.ActionLink(c.ScanTeam.TeamName, "Index", "ScanTeam", new { scanteamId = c.ScanTeamId }, null)
+                            </div>
+                        </button>
+                    }
+                </div>
+
+                <div class="pagination">
+                    @Html.PagedListPager(chapters, Page => Url.Action("Index", "Mangas", new { Page, mangaId = Model.MangaId, sortAsc = sort }))
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+

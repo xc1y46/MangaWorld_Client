@@ -34,36 +34,70 @@ namespace MangaWorld_Client.Controllers
             }
         }
 
-        public static List<Genre> getGenre(Manga manga, ContextModel db)
+        public static List<Chapter> getChaptersDescend(Manga manga)
         {
+            ContextModel db = new ContextModel();
+
+            var temp = db.Chapter.AsNoTracking().Where(c => c.MangaId == manga.MangaId).OrderByDescending(c => c.ChapterOrder).ToList();
+
+            db.Dispose();
+
+            return temp;
+        }
+
+        public static List<Genre> getGenre(Manga manga)
+        {
+            ContextModel db = new ContextModel();
             List<Genre> genre = new List<Genre>();
             string[] TempGenre = manga.Genres.Split('*');
 
             foreach (string g in TempGenre)
             {
-                Genre temp = db.Genre.Find(g);
+                Genre temp = db.Genre.AsNoTracking().Where(ge => ge.GenreId == g).FirstOrDefault();
                 if (temp != null) genre.Add(temp);
             }
+
+            db.Dispose();
 
             return genre.OrderByDescending(t => t.GenreLevel).ToList();
         }
 
-        public static List<byte> getRating(Manga manga, ContextModel db)
+        public static List<byte> getRating(Manga manga)
         {
-            List<Rating> TempRating = db.Rating.Where(r => r.MangaId == manga.MangaId).ToList();
+            ContextModel db = new ContextModel();
+            List<Rating> TempRating = db.Rating.AsNoTracking().Where(r => r.MangaId == manga.MangaId).ToList();
             List<byte> rating = new List<byte>();
-
             foreach(Rating r in TempRating)
             {
                 rating.Add(r.Score);
             }
 
+            db.Dispose();
+
             return rating;
         }
 
-        public static int getBookmarkCount(Manga manga, ContextModel db)
+        public static float getRatingScore(List<byte> ratings)
         {
-            List<User> bookmark = db.User.Where(u => u.Bookmarks.Contains(manga.MangaId)).ToList();
+            float score = 0.0f;
+            if (ratings.Count > 0)
+            {
+                foreach (byte b in ratings)
+                {
+                    score += b * 1.0f;
+                }
+                score /= ratings.Count;
+            }
+
+            return score;
+        }
+
+        public static int getBookmarkCount(Manga manga)
+        {
+            ContextModel db = new ContextModel();
+            List<User> bookmark = db.User.AsNoTracking().Where(u => u.Bookmarks.Contains(manga.MangaId)).ToList();
+
+            db.Dispose();
             return bookmark.Count;
         }
 

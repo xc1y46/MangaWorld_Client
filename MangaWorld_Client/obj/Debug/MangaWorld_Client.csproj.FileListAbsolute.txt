@@ -56,6 +56,8 @@ D:\PJ4\client\MangaWorld_Client\bin\EntityFramework.SqlServer.dll
 D:\PJ4\client\MangaWorld_Client\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\PJ4\client\MangaWorld_Client\bin\Microsoft.Web.Infrastructure.dll
 D:\PJ4\client\MangaWorld_Client\bin\Newtonsoft.Json.dll
+D:\PJ4\client\MangaWorld_Client\bin\PagedList.dll
+D:\PJ4\client\MangaWorld_Client\bin\PagedList.Mvc.dll
 D:\PJ4\client\MangaWorld_Client\bin\System.Web.Helpers.dll
 D:\PJ4\client\MangaWorld_Client\bin\System.Web.Mvc.dll
 D:\PJ4\client\MangaWorld_Client\bin\System.Web.Optimization.dll
@@ -66,6 +68,8 @@ D:\PJ4\client\MangaWorld_Client\bin\System.Web.WebPages.Razor.dll
 D:\PJ4\client\MangaWorld_Client\bin\WebGrease.dll
 D:\PJ4\client\MangaWorld_Client\bin\EntityFramework.xml
 D:\PJ4\client\MangaWorld_Client\bin\EntityFramework.SqlServer.xml
+D:\PJ4\client\MangaWorld_Client\bin\PagedList.xml
+D:\PJ4\client\MangaWorld_Client\bin\PagedList.Mvc.xml
 D:\PJ4\client\MangaWorld_Client\bin\System.Web.Helpers.xml
 D:\PJ4\client\MangaWorld_Client\bin\System.Web.Mvc.xml
 D:\PJ4\client\MangaWorld_Client\bin\System.Web.Optimization.xml
@@ -76,8 +80,8 @@ D:\PJ4\client\MangaWorld_Client\bin\System.Web.WebPages.Razor.xml
 D:\PJ4\client\MangaWorld_Client\bin\Newtonsoft.Json.xml
 D:\PJ4\client\MangaWorld_Client\bin\Antlr3.Runtime.pdb
 D:\PJ4\client\MangaWorld_Client\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.AssemblyReference.cache
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.CoreCompileInputs.cache
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.CopyComplete
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.dll
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.pdb
+D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.AssemblyReference.cache

@@ -49,8 +49,8 @@ namespace MangaWorld_Client.Models
         public string Status { get; set; }
 
         [Required]
-        [StringLength(10)]
-        public string ReleasedYear { get; set; }
+        [Range(1200, 2200)]
+        public int ReleasedYear { get; set; }
 
         public bool IsPublished { get; set; }
 

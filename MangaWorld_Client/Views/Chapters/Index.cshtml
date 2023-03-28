@@ -1,0 +1,128 @@
+﻿@model MangaWorld_Client.Models.Chapter
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    int next = (ViewData["NextChap"] != null) ? (int)ViewData["NextChap"] : -1;
+    int prev = (ViewData["PrevChap"] != null) ? (int)ViewData["PrevChap"] : -1;
+    List<Chapter> chapters = (List<Chapter>)ViewData["ChapList"];
+}
+
+<link href="~/resources/css/chapter_style.css" rel="stylesheet" />
+<script src="~/resources/javascript/chapter_script.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#chapter-nav-list').val('@Model.ChapterOrder');
+        $('#chapter-nav-list').change(function () {
+            window.location = '@Url.Action("Index", "Chapters")' + "?mangaId=" + '@Model.MangaId' + "&chapOrd=" + this.value;
+        });
+    });
+</script>
+
+<div class="container" oncontextmenu="return false">
+    <div class="row chapter-head">
+        @Html.ActionLink(Model.Manga.Title, "Index", "Mangas", new { mangaId = Model.MangaId }, new { @class = "chapter-detail-btn" })
+        <br />
+        <span>Chapter @Model.ChapterOrder @Model.ChapterTitle</span>
+        <br />
+        <i class="fa fa-users"></i>
+        @Html.ActionLink(Model.ScanTeam.TeamName, "Index", "ScanTeam", new { scanteamId = Model.ScanTeamId }, new { @class = "chapter-scanteam" })
+    </div>
+    <div class="row chapter-body">
+        <div class="row chapter-nav-area">
+            <select id="chapter-nav-list" class="col-md-4">
+                @{
+                    foreach (Chapter c in chapters)
+                    {
+                        int count = chapters.FindIndex(i => i == c) + 1;
+                        <option value="@c.ChapterOrder" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = c.ChapterOrder })'">
+                            (@count/@chapters.Count) Chapter @c.ChapterOrder  @c.ChapterTitle
+                        </option>
+                    }
+                }
+            </select>
+            @if (prev != -1)
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = chapters[prev].ChapterOrder })'">
+                    <i class="fa fa-arrow-left"></i>
+                    <span>Chapter @chapters[prev].ChapterOrder</span>
+                </button>
+            }
+            else
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId })'">
+                    <span>Back to manga page</span>
+                </button>
+            }
+
+            @if (next != -1)
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = chapters[next].ChapterOrder })'">
+                    <span>Chapter @chapters[next].ChapterOrder</span>
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            }
+            else
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId })'">
+                    <span>Back to manga page</span>
+                </button>
+            }
+        </div>
+        <div class="chapter-img-area">
+            @{
+                string path = Utils.Gallery + Model.Manga.MangaPath + Model.ChapterPath + Model.ChapterPath + ".";
+                for (int i = 0; i < Model.PageNum; i++)
+                {
+                    int pagenum = i + 1;
+                    string path2 = path + i + ".png";
+                    <div>
+                        <img src="@path2" class="chapter-img" />
+                        <h4 class="page-num-display">@pagenum/@Model.PageNum</h4>
+                    </div>
+                }
+            }
+        </div>
+        <div class="row chapter-nav-area">
+            <select id="chapter-nav-list" class="col-md-4">
+                @{
+                    foreach (Chapter c in chapters)
+                    {
+                        int count = chapters.FindIndex(i => i == c) + 1;
+                        <option value="@c.ChapterOrder" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = c.ChapterOrder })'">
+                            (@count/@chapters.Count) Chapter @c.ChapterOrder  @c.ChapterTitle
+                        </option>
+                    }
+                }
+            </select>
+            @if (prev != -1)
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = chapters[prev].ChapterOrder })'">
+                    <i class="fa fa-arrow-left"></i>
+                    <span>Chapter @chapters[prev].ChapterOrder</span>
+                </button>
+            }
+            else
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId })'">
+                    <span>Back to manga page</span>
+                </button>
+            }
+
+            @if (next != -1)
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = chapters[next].ChapterOrder })'">
+                    <span>Chapter @chapters[next].ChapterOrder</span>
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            }
+            else
+            {
+                <button class="chapter-nav-btn col-md-6" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId })'">
+                    <span>Back to manga page</span>
+                </button>
+            }
+        </div>
+    </div>
+</div>

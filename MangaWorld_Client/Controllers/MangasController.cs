@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MangaWorld_Client.Models;
+using PagedList;
 
 namespace MangaWorld_Client.Controllers
 {
@@ -15,7 +16,7 @@ namespace MangaWorld_Client.Controllers
         private ContextModel db = new ContextModel();
 
         // GET: Mangas
-        public ActionResult Index(string mangaId)
+        public ActionResult Index(string mangaId, int? PageSize, int? Page, bool? sortAsc)
         {
             if (String.IsNullOrEmpty(mangaId) || mangaId == "none")
             {
@@ -23,18 +24,32 @@ namespace MangaWorld_Client.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            Manga manga = db.Manga.Include(m => m.Status1).Where(m => m.MangaId == mangaId && m.IsPublished && !m.Deleted).FirstOrDefault();
+            Manga manga = db.Manga.Where(m => m.MangaId == mangaId && m.IsPublished && !m.Deleted).FirstOrDefault();
 
             if (manga == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
 
-            ViewData["AltTitle"] = manga.AltTitle.Split('*');
-            ViewData["Rating"] = Utils.getRating(manga, db);
-            ViewData["Bookmark"] = Utils.getBookmarkCount(manga, db);
-            ViewData["Genres"] = Utils.getGenre(manga, db);
-            ViewData["Comment"] = db.Comment.Include(m => m.User).Where(c => c.MangaId == mangaId).ToList();
+            manga = db.Manga.Include(m => m.Status1).Include(m => m.Comment).Include(m => m.Language).Where(m => m.MangaId == mangaId && m.IsPublished && !m.Deleted).FirstOrDefault();
+
+            int tempPageSize = (PageSize ?? 10);
+            int PageNumber = (Page ?? 1);
+
+            ViewData["ChapSortAsc"] = (sortAsc != null) ? sortAsc : false;
+
+            var temp = db.Chapter.Where(c => c.MangaId == mangaId).OrderBy(c => c.ChapterOrder);
+
+            ViewData["FirstChap"] = temp.ToList()[0].ChapterOrder;
+
+            if (!(bool)ViewData["ChapSortAsc"])
+            {
+                temp = temp.OrderByDescending(c => c.ChapterOrder);
+            }
+
+            ViewData["Rating"] = Utils.getRating(manga);
+            ViewData["Chapter"] = temp.ToPagedList(PageNumber, tempPageSize);
+            ViewData["Genres"] = Utils.getGenre(manga);
 
             return View(manga);
         }

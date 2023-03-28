@@ -1,0 +1,90 @@
+﻿@model PagedList.IPagedList<MangaWorld_Client.Models.Manga>
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    Genre genre = (Genre)ViewData["CurrGenre"];
+
+}
+
+<link href="~/resources/css/genre_style.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $('#genre-sort-opt').val('@ViewData["CurrSort"]');
+        $('#genre-sort-opt').change(function () {
+            window.location = '@Url.Action("Index", "Genres")' + "?genreId=" + '@genre.GenreId' + "&sortOpt=" + this.value;
+        });
+    });
+</script>
+
+<div class="container genre-body">
+    <div class="row genre-head">
+        <b>Tag/Genre: </b>
+        <b class="genre-title genre-level-@genre.GenreLevel">@genre.GenreId</b>
+        <p>
+            @genre.GenreDescription
+        </p>
+    </div>
+    <div class="row genre-body">
+        <div>
+            <b>Sort by</b>
+            <select id="genre-sort-opt">
+                <option value="timeDes">Year descending</option>
+                <option value="timeAsc">Year ascending</option>
+                <option value="scoreDes">Highest rating</option>
+                <option value="scoreAsc">Lowest rating</option>
+                <option value="followDes">Most bookmarked</option>
+                <option value="followAsc">Least bookmarked</option>
+            </select>
+        </div>
+
+        <div class="genre-manga-area">
+            @foreach (Manga m in Model)
+            {
+            <div class="genre-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                <div class="genre-manga-cover">
+                    <img src="@path@m.MangaPath@Utils.CoverArt" class="genre-manga-art"/>
+                </div>
+                <div class="genre-manga-content">
+                    <b class="genre-manga-title">@m.Title</b>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="genre-manga-pub-area">
+                        <i class="genre-manga-pub-status status-@m.Status fa fa-circle"></i>
+                        <b>PUBLICATION: @m.ReleasedYear, </b>
+                        <i>@m.Status1.StatusName</i>
+                    </div>
+                    <br />
+                    <b>
+                        <img class="genre-lang-flag flag-@m.LanguageId" />
+                        Chapter @Utils.getChaptersDescend(m)[0].ChapterOrder  @Utils.getChaptersDescend(m)[0].ChapterTitle
+                    </b>
+                    <br />
+                    <i class="genre-manga-stat fa fa-star">
+                        <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                    </i>
+                    <i class="genre-manga-stat fa fa-bookmark">
+                        <span>@Utils.getBookmarkCount(m)</span>
+                    </i>
+                    <i class="genre-manga-stat fa fa-comments">
+                        <span>@m.Comment.Count</span>
+                    </i>
+                    <br />
+                    @foreach (Genre g in Utils.getGenre(m))
+                    {
+                        <div class="genre-manga-genre genre-level-@g.GenreLevel">
+                            <b>@g.GenreId</b>
+                        </div>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+
+        <div class="pagination">
+            @Html.PagedListPager(Model, Page => Url.Action("Index", "Genres", new { Page, genreId = genre.GenreId, sortOpt = ViewData["CurrSort"] }))
+        </div>
+    </div>
+</div>
