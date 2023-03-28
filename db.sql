@@ -96,7 +96,7 @@ CREATE TABLE Manga(
 	Genres NVARCHAR(MAX) NULL,
 	LanguageId NVARCHAR(40) FOREIGN KEY REFERENCES [Language](LanguageId) NOT NULL,
 	[Status] NVARCHAR(40) FOREIGN KEY REFERENCES [Status](StatusId) NOT NULL DEFAULT N'GO',
-	ReleasedYear NVARCHAR(10) NOT NULL,
+	ReleasedYear INT NOT NULL,
 	IsPublished BIT NOT NULL DEFAULT 0,
 	Deleted BIT NOT NULL DEFAULT 0
 )
@@ -211,7 +211,7 @@ INSERT INTO Genre(GenreId, GenreDescription, GenreLevel) VALUES
 (N'TRAGEDY',N'A genre of story in which a hero is brought down by his/her own flaws, usually by ordinary human flaws – flaws like greed, over-ambition, or even an excess of love, honor, or loyalty', 1),
 (N'ONESHOT', N'A term which implies that the comic is presented in its entirety without any continuation. One-shot manga are often written for contests, and sometimes later developed into a full-length series', 2),
 (N'SEINEN', N'Targeted at grown men with adult themes', 2),
-(N'SUGGESTIVE',N'Contains slightly too heavily adult contents and themes', 2),
+(N'SUGGESTIVE',N'Contains slightly or heavily adult contents and themes', 2),
 (N'AWARD WINNING',N'Works that have recieved some form of literature award', 3),
 (N'GORE',N'Known for its graphic imagery and scenes featuring intense violence', 3)
 
@@ -358,51 +358,51 @@ NULL
 )
 
 INSERT INTO Manga(MangaId, Title, AltTitle, MangaPath, AuthorId, LanguageId, [Status], ReleasedYear, IsPublished, Genres, Summary) VALUES
-(N'M_JP_AoAshi', N'Aoashi', N'Ao Ashi', N'\Aoashi', N'AU_JP_KobaYugo', N'VN', N'GO',  N'2015', 1,
+(N'M_JP_AoAshi', N'Aoashi', N'Ao Ashi', N'\Aoashi', N'AU_JP_KobaYugo', N'VN', N'GO',  2015, 1,
 N'AWARD WINNING*SPORT*SCHOOL LIFE*DRAMA*SLICE OF LIFE',
 N'Aoi Ashito is a third year middle school student from Ehime. Behind his raw game hides his immense talent but Ashito suffers a huge setback because of his overly straightforward personality. One day the youth team manager of J1 club Tokyo City Esperion, Fukuda Tetsuya, appears in front of him. Fukuda sees his limitless potential and invites him to take part in his team''s tryouts in Tokyo. The story of the boy who will revolutionize football in Japan rapidly begins to unfold.'
 ),
 
-(N'M_JP_BlakClov', N'Black Clover', N'BlackClover', N'\Black_Clover', N'AU_JP_TabaYuki', N'VN', N'GO',  N'2015', 1,
+(N'M_JP_BlakClov', N'Black Clover', N'BlackClover', N'\Black_Clover', N'AU_JP_TabaYuki', N'VN', N'GO',  2015, 1,
 N'SHOUNEN*ACTION*COMEDY*FANTASY*DRAMA*MYSTERY',
 N'Asta and Yuno were abandoned together at the same church, and have been inseparable since. As children, they promised that they would compete against each other to see who would become the next Emperor Magus. However, as they grew up, some differences between them became plain. Yuno was a genius with magic, with amazing power and control, while Asta could not use magic at all, and tried to make up for his lack by training physically. When they received their Grimoires at age 15, Yuno got a spectacular book with a four-leaf clover (most people receive a three-leaf-clover), while Asta received nothing at all. However, when Yuno was threatened, the truth about Asta''s power was revealed, he received a five-leaf clover Grimoire, a "black clover"! Now the two friends are heading out in the world, both seeking the same goal!'
 ),
 
-(N'M_JP_BluLock', N'Blue Lock', N'Bluelock', N'\Blue_Lock', N'AU_JP_KaneMune', N'VN', N'GO',  N'2018', 1,
+(N'M_JP_BluLock', N'Blue Lock', N'Bluelock', N'\Blue_Lock', N'AU_JP_KaneMune', N'VN', N'GO', 2018, 1,
 N'AWARD WINNING*SPORT*SHOUNEN*SCHOOL LIFE*DRAMA*SLICE OF LIFE',
 N'Yoichi Isagi lost the opportunity to go to the national high school championships because he passed to his teammate who missed instead of shooting himself. Isagi is one of 300 U-18 strikers chosen by Jinpachi Ego, a man who was hired by the Japan Football Association after the 2018 FIFA World Cup, to guide Japan to winning the World Cup by destroying Japanese football. Ego''s plan is to isolate the 300 strikers into a prison-like institution called "Blue Lock", in order to create the world''s biggest "egotist"/striker, which has been lacking in Japanese football
 
 In 2021, the series won the 45th Kodansha Manga Awards in the shounen category.'
 ),
 
-(N'M_JP_CSM', N'Chainsaw Man', N'Chainsaw Man', N'\Chainsaw_Man', N'AU_JP_FujiTatsu', N'VN', N'GO',  N'2018', 1,
+(N'M_JP_CSM', N'Chainsaw Man', N'Chainsaw Man', N'\Chainsaw_Man', N'AU_JP_FujiTatsu', N'VN', N'GO',  2018, 1,
 N'AWARD WINNING*GORE*ACTION*SHOUNEN*COMEDY*HORROR*SUPERNATURAL',
 N'Broke young man + chainsaw dog demon = Chainsaw Man!
 
 The name says it all! Denji''s life of poverty is changed forever when he merges with his pet chainsaw dog, Pochita! Now he''s living in the big city and an official Devil Hunter. But he''s got a lot to learn about his new job and chainsaw powers!'
 ),
 
-(N'M_EN_Cyborg', N'Cyborg', N'Cyborg (DC Comics)', N'\Cyborg_DC', N'AU_EN_MarvWolf', N'VN', N'GO',  N'2015', 1,
+(N'M_EN_Cyborg', N'Cyborg', N'Cyborg (DC Comics)', N'\Cyborg_DC', N'AU_EN_MarvWolf', N'VN', N'GO',  2015, 1,
 N'SUPERHERO*ACTION*SCI-FY*DRAMA*TRAGEDY',
 N'Tells the solo side stories of the DC Teen Titans hero Cyborg (Victor "Vic" Stone)'
 ),
 
-(N'M_CN_DouLuo', N'DouLuo DaLu', N'Doula Continent*Soul Land', N'\DouLuo_DaLu', N'AU_CN_SanShao', N'VN', N'GO',  N'2011', 1,
+(N'M_CN_DouLuo', N'DouLuo DaLu', N'Doula Continent*Soul Land', N'\DouLuo_DaLu', N'AU_CN_SanShao', N'VN', N'GO',  2011, 1,
 N'MANHUA*ACTION*ROMANCE*FANTASY*DRAMA*MARTIAL ARTS',
 N'Tang San was a talented apprentice to the great Tang Sect. Due to mastering the forbidden Tang arts, he was pressured to jump off a cliff and died. However, he was reborn into another world filled with Essence Spirits. At the age of six, every person will have their essence spirit awoken. Spirits can take many forms: weapons, plants, and animals; They can help people with their daily lives. Outstanding spirits can be trained to engage in combat. A spirit master is the soul and heart of the Combat Continent! When Tang San turns six, a huge surprise awaits him. His peaceful life in this new world will change completely'
 ),
 
-(N'M_CN_Doupo', N'Doupo Cangqiong', N'Fights Breaking Through The Heavens*Battle Through the Sky', N'\Doupo_Cangqiong', N'AU_CN_TuDou', N'VN', N'GO',  N'2012', 1,
+(N'M_CN_Doupo', N'Doupo Cangqiong', N'Fights Breaking Through The Heavens*Battle Through the Sky', N'\Doupo_Cangqiong', N'AU_CN_TuDou', N'VN', N'GO',  2012, 1,
 N'MANHUA*ACTION*HAREM*ROMANCE*COMEDY*FANTASY*DRAMA*MARTIAL ARTS',
 N'In a land where there is no magic, a land where the strong make the rules and weak have to obey, a land filled with alluring treasures and beauty, yet also filled with unforeseen danger. Xiao Yan, who has shown talents none had seen in decades, suddenly lost everything three years ago - his powers, his reputation, and his promise to his mother. What sorcery has caused him to lose all of his powers? And why has his fiancée suddenly shown up?'
 ),
 
-(N'M_JP_DragBall', N'Dragon Ball', N'DragonBall', N'\Dragon_Ball', N'AU_JP_ToriAkira', N'VN', N'COMP',  N'1984', 1,
+(N'M_JP_DragBall', N'Dragon Ball', N'DragonBall', N'\Dragon_Ball', N'AU_JP_ToriAkira', N'VN', N'COMP',  1984, 1,
 N'SHOUNEN*AWARD WINNING*ACTION*COMEDY*FANTASY*SCI-FY*SPORT*MARTIAL ARTS*DRAMA*SLICE OF LIFE*SUGGESTIVE*GORE',
 N'Dragon Ball follows the adventures of Goku from his childhood through adulthood as he trains in martial arts and explores the world in search of the seven mystical orbs known as the Dragon Balls, which can summon a wish-granting dragon when gathered. Along his journey, Goku makes several friends and battles a wide variety of villains, many of whom also seek the Dragon Balls for their own desires. Along the way becoming the strongest warrior in the universe'
 ),
 
-(N'M_KR_GoHS', N'The God of High School', N'God of High school', N'\God_of_Highschool', N'AU_KR_YongJe', N'VN', N'COMP',  N'2011', 1,
+(N'M_KR_GoHS', N'The God of High School', N'God of High school', N'\God_of_Highschool', N'AU_KR_YongJe', N'VN', N'COMP', 2011, 1,
 N'MANHWA*ACTION*COMEDY*SUPERNATURAL*FANTASY*DRAMA*MARTIAL ARTS',
 N'The "God of High School" is a fierce competition held between Korean high school students to determine the best fighter among them. All styles of martial arts and weapons are allowed. The ultimate prize? The winner''s deepest desire will be granted, no matter the cost.
 
@@ -411,87 +411,87 @@ Jin Mo-Ri has been training in taekwondo under his grandfather from a young age.
 Although this tournament seems simple, what more lies in store for Jin Mo-Ri and his friends? And will they be prepared to face what may come to pass?'
 ),
 
-(N'M_JP_MHA', N'My Hero Academia', N'Boku no Hero Academia', N'\My_Hero_Academia', N'AU_JP_HoriKou', N'VN', N'GO',  N'2014', 1,
+(N'M_JP_MHA', N'My Hero Academia', N'Boku no Hero Academia', N'\My_Hero_Academia', N'AU_JP_HoriKou', N'VN', N'GO', 2014, 1,
 N'SHOUNEN*ACTION*COMEDY*SCI-FY*SUPERHERO*FANTASY*DRAMA*MARTIAL ARTS*SLICE OF LIFE*SCHOOL LIFE*SUPERNATURAL',
 N'One day, a four-year-old boy came to a sudden realization: the world is not fair. Eighty percent of the world''s population wield special abilities, known as "quirks," which have given many the power to make their childhood dreams of becoming a superhero a reality. Unfortunately, Izuku Midoriya was one of the few born without a quirk, suffering from discrimination because of it. Yet, he refuses to give up on his dream of becoming a hero; determined to do the impossible, Izuku sets his sights on the elite hero training academy, UA High.
 
 However, everything changes after a chance meeting with the number one hero and Izuku''s idol, All Might. Discovering that his dream is not a dead end, the powerless boy undergoes special training, working harder than ever before. Eventually, this leads to him inheriting All Might''s power, and with his newfound abilities, gets into his school of choice, beginning his grueling journey to become the successor of the best hero on the planet.'
 ),
 
-(N'M_JP_DemonSlay', N'Kimetsu no Yaiba', N'Demon Slayer', N'\Demon_Slayer', N'AU_JP_GotoKoyo', N'VN', N'COMP',  N'2016 ', 1,
+(N'M_JP_DemonSlay', N'Kimetsu no Yaiba', N'Demon Slayer', N'\Demon_Slayer', N'AU_JP_GotoKoyo', N'VN', N'COMP',  2016, 1,
 N'SHOUNEN*AWARD WINNING*ACTION*COMEDY*MARTIAL ARTS*DRAMA*SUPERNATURAL*TRAGEDY',
 N'Since ancient times, rumors have abounded of man-eating demons lurking in the woods. Because of this, the local townsfolk never venture outside at night. Legend has it that a demon slayer also roams the night, hunting down these bloodthirsty demons.
 Ever since the death of his father, Tanjirou has taken it upon himself to support his mother and five siblings. Although their lives may be hardened by tragedy, they''ve found happiness. But that ephemeral warmth is shattered one day when Tanjirou finds his family slaughtered and the lone survivor, his sister Nezuko, turned into a demon. Adding to this sorrow, a demon hunter named Tomioka Giyuu arrived and was about to finish Nezuko off, but to his surprise she and Tanjiro started to protect each other. Seeing this oddity and Tanjiro''s promising fighting skills, Giyuu decides to send them to his old mentor to be trained.
 So begins Tanjiro''s life as a demon hunter, bound on a quest to cure his sister and find the one who murdered his entire family.'
 ),
 
-(N'M_JP_KuroBask', N'Kuroko''s Basketball', N'Kuroko no Basket', N'\Kuroko_Basketball', N'AU_JP_FujiTada', N'VN', N'COMP', N'2008', 1,
+(N'M_JP_KuroBask', N'Kuroko''s Basketball', N'Kuroko no Basket', N'\Kuroko_Basketball', N'AU_JP_FujiTada', N'VN', N'COMP', 2008, 1,
 N'SHOUNEN*COMEDY*SPORT*SLICE OF LIFE',
 N'Teikou Middle School is famous for its highly renowned basketball team, which produced the famed "Generation of Miracles": a team of five prodigies, each with their own unique abilities, considered to be undefeatable by the time they became third years. However, blinded by pride, they split up, entering different high schools upon graduation.
 
 Taiga Kagami, having just returned from America, joins the basketball team at Seirin High School in search of strong team members. There, he finds Tetsuya Kuroko, a seemingly unimpressive player, only for Kagami to find out that Kuroko was the "Phantom Sixth Member" of the Generation of Miracles: an invisible player who used his impeccable passing skills to support the team from the shadows. Together, they resolve to defeat the Generation of Miracles and make the Seirin basketball team the best in Japan'
 ),
 
-(N'M_EN_LuckyLuke', N'Lucky Luke', N'Lucky Luke issues collection', N'\Lucky_Luke', N'AU_EN_Morris', N'VN', N'COMP', N'1946', 1,
+(N'M_EN_LuckyLuke', N'Lucky Luke', N'Lucky Luke issues collection', N'\Lucky_Luke', N'AU_EN_Morris', N'VN', N'COMP', 1946, 1,
 N'ACTION*COMEDY',
 N'The series takes place in the American Old West of the United States. It stars the titular Lucky Luke, a street-smart gunslinger known as the "man who shoots faster than his shadow", and his intelligent horse Jolly Jumper. Lucky Luke is pitted against various villains, either fictional or inspired by American history or folklore'
 ),
 
-(N'M_JP_Naruto', N'Naruto', N'Naruto', N'\Naruto', N'AU_JP_KishiMasa', N'VN', N'COMP', N'1999', 1,
+(N'M_JP_Naruto', N'Naruto', N'Naruto', N'\Naruto', N'AU_JP_KishiMasa', N'VN', N'COMP', 1999, 1,
 N'AWARD WINNING*SUGGESTIVE*SHOUNEN*ACTION*COMEDY*FANTASY*DRAMA*MARTIAL ARTS',
 N'Before Naruto''s birth, a great demon fox had attacked the Hidden Leaf Village. The 4th Hokage from the leaf village sealed the demon inside the newly born Naruto, causing him to unknowingly grow up detested by his fellow villagers. Despite his lack of talent in many areas of ninjutsu, Naruto strives for only one goal: to gain the title of Hokage, the strongest ninja in his village. Desiring the respect he never received, Naruto works toward his dream with fellow friends Sasuke and Sakura and mentor Kakashi as they go through many trials and battles that come with being a ninja.'
 ),
 
-(N'M_CN_EnternWill', N'An Eternal Will', N'Renegade Immortal*Yīniàn yǒnghéng', N'\Eternal_Will', N'AU_CN_Ergen', N'VN', N'GO', N'2019', 1,
+(N'M_CN_EnternWill', N'An Eternal Will', N'Renegade Immortal*Yīniàn yǒnghéng', N'\Eternal_Will', N'AU_CN_Ergen', N'VN', N'GO', 2019, 1,
 N'MANHUA*ACTION*FANTASY*ROMANCE*HAREM*SUPERNATURAL*MARTIAL ARTS',
 N'After three years of trying, Bai Xiaochun sets off to start his journey to immortality. As a disciple in the Stove Room, a single grain of rice helps him towards his quest of eternal life. With his determination to stave off death, will he be able to attain strength and live long?'
 ),
 
-(N'M_JP_OnePiece', N'One Piece', N'OnePiece', N'\One_Piece', N'AU_JP_OdaEiichi', N'VN', N'GO', N'1997', 1,
+(N'M_JP_OnePiece', N'One Piece', N'OnePiece', N'\One_Piece', N'AU_JP_OdaEiichi', N'VN', N'GO', 1997, 1,
 N'SHOUNEN*AWARD WINNING*GORE*COMEDY*ACTION*FANTASY*DRAMA*MYSTERY*SUPERNATURAL*TRAGEDY',
 N'Gol D. Roger, a man referred to as the "Pirate King," is set to be executed by the World Government. But just before his demise, he confirms the existence of a great treasure, One Piece, located somewhere within the vast ocean known as the Grand Line. Announcing that One Piece can be claimed by anyone worthy enough to reach it, the Pirate King is executed and the Great Age of Pirates begins.
 
 Twenty-two years later, a young man by the name of Monkey D. Luffy is ready to embark on his own adventure, searching for One Piece and striving to become the new Pirate King. Armed with just a straw hat, a small boat, and an elastic body, he sets out on a fantastic journey to gather his own crew and a worthy ship that will take them across the Grand Line to claim the greatest status on the high seas.'
 ),
 
-(N'M_JP_OPM', N'One Punch-Man', N'One Punch Man', N'\One_Punch_Man', N'AU_JP_MuraYuusuke', N'VN', N'GO', N'2012', 1,
+(N'M_JP_OPM', N'One Punch-Man', N'One Punch Man', N'\One_Punch_Man', N'AU_JP_MuraYuusuke', N'VN', N'GO', 2012, 1,
 N'SHOUNEN*SUGGESTIVE*GORE*ACTION*SCI-FI*SUPERHERO*MARTIAL ARTS*COMEDY*FANTASY*SLICE OF LIFE',
 N'After rigorously training for three years, the ordinary Saitama has gained immense strength which allows him to take out anyone and anything with just one punch. He decides to put his new skill to good use by becoming a hero. However, he quickly becomes bored with easily defeating monsters, and wants someone to give him a challenge to bring back the spark of being a hero.
 
 Upon bearing witness to Saitama''s amazing power, Genos, a cyborg, is determined to become Saitama''s apprentice. During this time, Saitama realizes he is neither getting the recognition that he deserves nor known by the people due to him not being a part of the Hero Association. Wanting to boost his reputation, Saitama decides to have Genos register with him, in exchange for taking him in as a pupil. Together, the two begin working their way up toward becoming true heroes, hoping to find strong enemies and earn respect in the process.'
 ),
 
-(N'M_EN_PlanetHulk', N'Planet Hulk', N'Hulk', N'\Planet_Hulk', N'AU_EN_GregPak', N'VN', N'GO', N'2006', 1,
+(N'M_EN_PlanetHulk', N'Planet Hulk', N'Hulk', N'\Planet_Hulk', N'AU_EN_GregPak', N'VN', N'GO', 2006, 1,
 N'GORE*SUPERHERO*ACTION*FANTASY*SCI-FY*SUGGESTIVE',
 N'"Planet Hulk" is a Marvel Comics storyline that ran primarily through issues of The Incredible Hulk starting in 2006. Written by Greg Pak, it dealt with the Marvel heroes''s decision to send the Hulk away, his acclimation to and conquest of the planet where he landed, and his efforts to return to Earth to take his revenge'
 ),
 
-(N'M_EN_WondrWomen', N'Wonder Women', N'Wonder Women', N'\Wonder_Women', N'AU_EN_CharlesMoulten', N'VN', N'HIA', N'1941', 1,
+(N'M_EN_WondrWomen', N'Wonder Women', N'Wonder Women', N'\Wonder_Women', N'AU_EN_CharlesMoulten', N'VN', N'HIA', 1941, 1,
 N'GORE*SUPERHERO*ACTION*FANTASY*DRAMA*TRAGEDY*SUGGESTIVE',
 N'Following the storyline of Wonder Women, a founding member of the Justice League from the DC comics universe'
 ),
 
-(N'M_EN_TinTinBlckGold', N'Land of Black Gold', N'Tin tin in the Land of Black Gold', N'\TinTin_Black_Gold', N'AU_EN_Herge', N'VN', N'CANC', N'1939', 1,
+(N'M_EN_TinTinBlckGold', N'Land of Black Gold', N'Tin tin in the Land of Black Gold', N'\TinTin_Black_Gold', N'AU_EN_Herge', N'VN', N'CANC', 1939, 1,
 N'ACTION*COMEDY*DRAMA*MYSTERY',
 N'Land of Black Gold is the fifteenth volume of The Adventures of Tintin, the comics series by Belgian cartoonist Hergé. Set on the eve of a European war, the plot revolves around the attempts of young Belgian reporter Tintin to uncover a militant group responsible for sabotaging oil supplies in the Middle East.'
 ),
 
-(N'M_JP_Anohana_Nov', N'Anohana: The Flower We Saw That Day', N'Anohana', N'\Anohana_Nov', N'AU_JP_OkadaMari', N'EN', N'COMP', N'2011', 1,
+(N'M_JP_Anohana_Nov', N'Anohana: The Flower We Saw That Day', N'Anohana', N'\Anohana_Nov', N'AU_JP_OkadaMari', N'EN', N'COMP', 2011, 1,
 N'NOVEL*ROMANCE*DRAMA*SLICE OF LIFE*FANTASY',
 N'Jinta Yadomi and his group of childhood friends have become estranged after a tragic accident split them apart. Now in their high school years, a sudden surprise forces each of them to confront their guilt over what happened that day and come to terms with the ghosts of their past.'
 ),
 
-(N'M_JP_FiveCenti_Nov', N'5 Centimeters per Second', N'Byosoku Go Senchimetoru', N'\Five_Centimeter_Nov', N'AU_JP_MakoShinkai', N'EN', N'COMP', N'2007', 1,
+(N'M_JP_FiveCenti_Nov', N'5 Centimeters per Second', N'Byosoku Go Senchimetoru', N'\Five_Centimeter_Nov', N'AU_JP_MakoShinkai', N'EN', N'COMP', 2007, 1,
 N'NOVEL*AWARD WINNING*ROMANCE*DRAMA*SLICE OF LIFE*SEINEN',
 N'The first novel written by Makoto Shinkai. Consisting of three segments, the story is set in Japan, beginning in the early 1990s up until the present day (2008), with each act centered on a boy named Takaki Tōno , each following a period in his life and his relationships with the girls around him.'
 ),
 
-(N'M_JP_GoblinSlay_Nov', N'Goblin Slayer', N'GoblinSlayer', N'\Goblin_Slayer_Nov', N'AU_JP_KumoKagyu', N'EN', N'GO', N'2016', 1,
+(N'M_JP_GoblinSlay_Nov', N'Goblin Slayer', N'GoblinSlayer', N'\Goblin_Slayer_Nov', N'AU_JP_KumoKagyu', N'EN', N'GO', 2016, 1,
 N'NOVEL*FANTASY*SHOUNEN*GORE*ACTION*SUGGESTIVE*ADVENTURE*HAREM*HORROR',
 N'In a world of fantasy, adventurers come from far and wide to join the Guild. They complete contracts to earn gold and glory. An inexperienced priestess joins her first adventuring party, but comes into danger after her first contract involving goblins goes wrong. As the rest of her party is either wiped out or taken out of commission, she is saved by a man known as Goblin Slayer, an adventurer whose only purpose is the eradication of goblins with extreme prejudice.'
 ),
 
-(N'M_JP_Higehiro_Nov', N'After Being Rejected, I Shaved and Took in a High School Runaway', N'Higehiro', N'\Higehiro_Nov', N'AU_JP_Shimesaba', N'EN', N'GO', N'2017', 1,
+(N'M_JP_Higehiro_Nov', N'After Being Rejected, I Shaved and Took in a High School Runaway', N'Higehiro', N'\Higehiro_Nov', N'AU_JP_Shimesaba', N'EN', N'GO', 2017, 1,
 N'NOVEL*SEINEN*SUGGESTIVE*HAREM*ROMANCE*DRAMA',
 N'Young handsome salaryman Yoshida had finally gathered up the courage to confess his feelings for his employer and longtime crush Airi Gotou. Sadly though, he ended up rejected and goes out drinking with his co-worker/best friend Hashimoto to relieve himself of his sorrows. While heading back home in a drunken state, he meets Sayu Ogiwara, a teenage high school girl who asks to spend the night with him. He lets her in out of pity and because he is too exhausted to argue, saying to himself that he will chase her out tomorrow. The next day now sobered up, Yoshida asks Sayu how she ended up at his apartment: she reveals that she had run away from her family and home in Hokkaido and has been prostituting herself to random men in exchange for a place to stay. Now knowing her backstory, Yoshida feeling bad for her finds himself unable to kick her out of his house and their time of living together begins.'
 )
@@ -745,13 +745,13 @@ INSERT INTO Chapter(MangaId, ChapterOrder, PageNum, ChapterPath, ChapterTitle, C
 (N'M_EN_WondrWomen', 3, 23, N'\WWchapter3', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
 (N'M_EN_WondrWomen', 4, 21, N'\WWchapter4', N'', N'NORM', N'SC_VN_DCfanclub', CAST(N'2020-11-02' AS DateTime), 1),
 
-(N'M_JP_Higehiro_Nov', 1, 282, N'\HGchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-08-02' AS DateTime), 1),
+(N'M_JP_Higehiro_Nov', 1, 282, N'\HGchapter1', N'Volume 1', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-08-02' AS DateTime), 1),
 
-(N'M_JP_GoblinSlay_Nov', 1, 307, N'\GBchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-03-12' AS DateTime), 1),
+(N'M_JP_GoblinSlay_Nov', 1, 307, N'\GBchapter1', N'Volume 1', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-03-12' AS DateTime), 1),
 
-(N'M_JP_FiveCenti_Nov', 1, 212, N'\FCchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-07-26' AS DateTime), 1),
+(N'M_JP_FiveCenti_Nov', 1, 212, N'\FCchapter1', N'Volume 1', N'NORM', N'SC_EN_mp4directs', CAST(N'2022-07-26' AS DateTime), 1),
 
-(N'M_JP_Anohana_Nov', 1, 143, N'\ANchapter1', N'', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-12-04' AS DateTime), 1)
+(N'M_JP_Anohana_Nov', 1, 143, N'\ANchapter1', N'Volume 1', N'NORM', N'SC_EN_mp4directs', CAST(N'2021-12-04' AS DateTime), 1)
 
 INSERT INTO [User](UserName, UserPassword, Bookmarks) VALUES
 (N'Mark Dye', N'40bd001563085fc35165329ea1ff5c5ecbdbbeef',
