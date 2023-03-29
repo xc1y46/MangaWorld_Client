@@ -84,3 +84,4 @@ D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.CoreCompileIn
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.CopyComplete
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.dll
 D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.pdb
+D:\PJ4\client\MangaWorld_Client\obj\Debug\MangaWorld_Client.csproj.AssemblyReference.cache

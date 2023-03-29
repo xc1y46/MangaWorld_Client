@@ -102,7 +102,7 @@
                 <br /><br />
                 <h5 class="manga-detail-header">Last update(m/d/y)</h5>
                 <span class="manga-detail-item">
-                    @chapters.OrderByDescending(c => c.UploadDate).FirstOrDefault().UploadDate.ToString("d")
+                    @Utils.getChaptersDescend(Model)[0].UploadDate.ToString("d")
                 </span>
             </div>
             <div class="col-md-9 manga-chapter-area">
