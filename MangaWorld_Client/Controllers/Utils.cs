@@ -34,7 +34,7 @@ namespace MangaWorld_Client.Controllers
             }
         }
 
-        public static List<Chapter> getChaptersDescend(Manga manga)
+        public static Chapter getLastChapters(Manga manga)
         {
             ContextModel db = new ContextModel();
 
@@ -42,7 +42,7 @@ namespace MangaWorld_Client.Controllers
 
             db.Dispose();
 
-            return temp;
+            return temp[0];
         }
 
         public static List<Genre> getGenre(Manga manga)
