@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\MangaWorld_Client",
-    "\\MangaWorld_Client\\Views",
-    "\\MangaWorld_Client\\Views\\Shared"
+    ""
   ],
-  "SelectedNode": "\\MangaWorld_Client\\MangaWorld_Client.csproj",
+  "SelectedNode": "\\MangaWorld_Client.sln",
   "PreviewInSolutionExplorer": false
 }
