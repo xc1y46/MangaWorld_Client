@@ -34,13 +34,17 @@ namespace MangaWorld_Client.Controllers
             }
         }
 
-        public static Chapter getLastChapters(Manga manga)
+
+        //true if last, false if first
+        public static Chapter getLastOrFirstChapters(Manga manga, bool firstOrLast)
         {
             ContextModel db = new ContextModel();
 
             var temp = db.Chapter.AsNoTracking().Where(c => c.MangaId == manga.MangaId).OrderByDescending(c => c.ChapterOrder).ToList();
 
             db.Dispose();
+
+            if (!firstOrLast) temp.Reverse();
 
             return temp[0];
         }

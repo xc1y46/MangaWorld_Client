@@ -71,7 +71,7 @@
         </div>
     </div>
     <div class="row manga-opt">
-        <button class="manga-opt-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = ViewData["FirstChap"] })'">Start Reading</button>
+        <button class="manga-opt-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = Utils.getLastOrFirstChapters(Model, false).ChapterOrder })'">Start Reading</button>
 
         <button class="manga-opt-item">Bookmark</button>
 
@@ -102,7 +102,7 @@
                 <br /><br />
                 <h5 class="manga-detail-header">Last update(m/d/y)</h5>
                 <span class="manga-detail-item">
-                    @Utils.getLastChapters(Model).UploadDate.ToString("d")
+                    @Utils.getLastOrFirstChapters(Model, true).UploadDate.ToString("d")
                 </span>
             </div>
             <div class="col-md-9 manga-chapter-area">

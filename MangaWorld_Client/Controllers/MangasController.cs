@@ -40,8 +40,6 @@ namespace MangaWorld_Client.Controllers
 
             var temp = db.Chapter.Where(c => c.MangaId == mangaId).OrderBy(c => c.ChapterOrder);
 
-            ViewData["FirstChap"] = temp.ToList()[0].ChapterOrder;
-
             if (!(bool)ViewData["ChapSortAsc"])
             {
                 temp = temp.OrderByDescending(c => c.ChapterOrder);
