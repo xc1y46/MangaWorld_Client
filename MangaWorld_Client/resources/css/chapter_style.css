@@ -92,5 +92,6 @@
 }
 
 .chapter-img-adjust {
-    max-height: 93.5vh;
+    max-height: 93vh;
+    min-height: 93vh;
 }

@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthorsController.cs" />
     <Compile Include="Controllers\ChaptersController.cs" />
     <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,10 +147,10 @@
     <Compile Include="Models\Chapter.cs" />
     <Compile Include="Models\ChapterType.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\ContextModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Manga.cs" />
-    <Compile Include="Models\ContextModel.cs" />
     <Compile Include="Models\Rating.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\ScanTeam.cs" />
@@ -167,6 +168,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="resources\css\author_style.css" />
     <Content Include="resources\css\chapter_style.css" />
     <Content Include="resources\css\genre_style.css" />
     <Content Include="resources\css\layout_style.css" />
@@ -204,6 +206,7 @@
     <Content Include="Views\Mangas\Index.cshtml" />
     <Content Include="Views\Chapters\Index.cshtml" />
     <Content Include="Views\Genres\Index.cshtml" />
+    <Content Include="Views\Authors\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

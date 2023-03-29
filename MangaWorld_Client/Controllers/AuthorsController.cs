@@ -11,19 +11,19 @@ using PagedList;
 
 namespace MangaWorld_Client.Controllers
 {
-    public class GenresController : Controller
+    public class AuthorsController : Controller
     {
         private ContextModel db = new ContextModel();
 
-        // GET: Genres
-        public ActionResult Index(string genreId, int? PageSize, int? Page, string sortOpt)
+        // GET: Authors
+        public ActionResult Index(string authorId, int? PageSize, int? Page, string sortOpt)
         {
-            if (String.IsNullOrEmpty(genreId))
+            if (authorId == null)
             {
                 return RedirectToAction("Index", "Home");
             }
-            Genre genre = db.Genre.Find(genreId);
-            if (genre == null)
+            Author author = db.Author.Find(authorId);
+            if (author == null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -31,7 +31,7 @@ namespace MangaWorld_Client.Controllers
             int tempPageSize = (PageSize ?? 10);
             int PageNumber = (Page ?? 1);
 
-            var temp = db.Manga.Where(m => !m.Deleted && m.IsPublished && m.Genres.Contains(genreId)).OrderBy(m => m.ReleasedYear).ToList();
+            var temp = db.Manga.Where(m => !m.Deleted && m.IsPublished && m.AuthorId == authorId).OrderBy(m => m.ReleasedYear).ToList();
 
             ViewData["CurrSort"] = String.IsNullOrEmpty(sortOpt) ? "timeDes" : sortOpt;
 
@@ -39,7 +39,7 @@ namespace MangaWorld_Client.Controllers
             {
                 case "timeDes":
                     {
-                        temp.Sort((x,y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
+                        temp.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
                         temp.Reverse();
                         break;
                     }
@@ -61,7 +61,7 @@ namespace MangaWorld_Client.Controllers
                     }
                 case "followDes":
                     {
-                        temp.Sort((x,y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
+                        temp.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
                         temp.Reverse();
                         break;
                     }
@@ -78,7 +78,7 @@ namespace MangaWorld_Client.Controllers
                     }
             }
 
-            ViewData["CurrGenre"] = genre;
+            ViewData["Author"] = author;
 
             return View(temp.ToPagedList(PageNumber, tempPageSize));
         }

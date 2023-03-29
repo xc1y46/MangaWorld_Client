@@ -1,0 +1,110 @@
+﻿@model PagedList.IPagedList<MangaWorld_Client.Models.Manga>
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    Author author = (Author)ViewData["Author"];
+}
+<link href="~/resources/css/author_style.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $('#author-sort-opt').val('@ViewData["CurrSort"]');
+        $('#author-sort-opt').change(function () {
+            window.location = '@Url.Action("Index", "Authors")' + "?authorId=" + '@author.AuthorId' + "&sortOpt=" + this.value;
+        });
+    });
+</script>
+
+<div class="container author-body">
+    <div class="row author-head">
+        <i class="fa fa-user-circle"></i>
+        <b class="author-title">@author.AuthorName</b>
+
+        @if (!String.IsNullOrEmpty(author.Biography))
+        {
+            <p>@author.Biography</p>
+        }
+        else
+        {
+            <p><i>No biography</i></p>
+        }
+
+        <br />
+        <span>Socials:</span>
+        <br />
+        @if (!String.IsNullOrEmpty(author.Socials))
+        {
+            foreach (string s in author.Socials.Split('*'))
+            {
+                if (!String.IsNullOrEmpty(s))
+                {
+                    <a href="@s">@s</a><br />
+                }
+            }
+        }
+    </div>
+
+    <div class="author-opt-area">
+        <b>Works(@Model.Count)</b>
+        <br /><br />
+        <b>Sort by</b>
+        <select id="author-sort-opt">
+            <option value="timeDes">Year descending</option>
+            <option value="timeAsc">Year ascending</option>
+            <option value="scoreDes">Highest rating</option>
+            <option value="scoreAsc">Lowest rating</option>
+            <option value="followDes">Most bookmarked</option>
+            <option value="followAsc">Least bookmarked</option>
+        </select>
+    </div>
+
+    <div class="author-manga-area">
+        @foreach (Manga m in Model)
+        {
+            <div class="author-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                <div class="author-manga-cover">
+                    <img src="@path@m.MangaPath@Utils.CoverArt" class="author-manga-art" />
+                </div>
+                <div class="author-manga-content">
+                    <b class="author-manga-title">@m.Title</b>
+                    &nbsp;&nbsp;&nbsp;
+                    <div class="author-manga-pub-area">
+                        <i class="author-manga-pub-status status-@m.Status fa fa-circle"></i>
+                        <b>PUBLICATION: @m.ReleasedYear, </b>
+                        <i>@m.Status1.StatusName</i>
+                    </div>
+                    <br />
+                    <b>
+                        <img class="author-lang-flag flag-@m.LanguageId" />
+                        Chapter @Utils.getChaptersDescend(m)[0].ChapterOrder  @Utils.getChaptersDescend(m)[0].ChapterTitle
+                    </b>
+                    <br />
+                    <i class="author-manga-stat fa fa-star">
+                        <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                    </i>
+                    <i class="author-manga-stat fa fa-bookmark">
+                        <span>@Utils.getBookmarkCount(m)</span>
+                    </i>
+                    <i class="author-manga-stat fa fa-comments">
+                        <span>@m.Comment.Count</span>
+                    </i>
+                    <br />
+                    @foreach (Genre g in Utils.getGenre(m))
+                    {
+                        <div class="author-manga-genre genre-level-@g.GenreLevel">
+                            <b>@g.GenreId</b>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, Page => Url.Action("Index", "Authors", new { Page, authorId = author.AuthorId, sortOpt = ViewData["CurrSort"] }))
+    </div>
+</div>
+</div>

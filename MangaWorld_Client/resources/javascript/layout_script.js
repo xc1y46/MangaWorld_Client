@@ -18,7 +18,7 @@ $(document).ready(function () {
         var sticky = $('.layout-head'),
             scroll = $(window).scrollTop();
 
-        if (scroll > 200) sticky.addClass('fixed');
-        else sticky.removeClass('fixed');
+        if (scroll > 170) sticky.addClass('fixed');
+        else if(scroll < 100) sticky.removeClass('fixed');
     });
 });

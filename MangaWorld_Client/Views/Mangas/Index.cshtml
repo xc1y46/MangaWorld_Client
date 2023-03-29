@@ -95,10 +95,10 @@
         <div class="row manga-content-area">
             <div class="col-md-3 manga-detail-area">
                 <h5 class="manga-detail-header">Author</h5>
-                @Html.ActionLink(Model.Author.AuthorName, "Index", "Author", new { authorId = Model.AuthorId }, new { @class = "manga-detail-item" })
+                @Html.ActionLink(Model.Author.AuthorName, "Index", "Authors", new { authorId = Model.AuthorId }, new { @class = "manga-detail-item" })
                 <br /><br />
                 <h5 class="manga-detail-header">Language</h5>
-                @Html.ActionLink(Model.Language.LanguageName, "Search", "Home", new { langId = Model.LanguageId }, new { @class = "manga-detail-item" })
+                @Html.ActionLink(Model.Language.LanguageName, "Index", "Home", new { langId = Model.LanguageId }, new { @class = "manga-detail-item" })
                 <br /><br />
                 <h5 class="manga-detail-header">Last update(m/d/y)</h5>
                 <span class="manga-detail-item">
