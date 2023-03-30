@@ -30,7 +30,7 @@
                         @Html.ActionLink("Groups", "Index", "Home", null, new { @class = "side-nav-content" })
                     </li>
                     <li>
-                        @Html.ActionLink("Search", "Index", "Home", null, new { @class = "side-nav-content" })
+                        @Html.ActionLink("Search", "Search", "Home", null, new { @class = "side-nav-content" })
                     </li>
                     <li>
                         @Html.ActionLink("Random", "Index", "Home", null, new { @class = "side-nav-content" })
@@ -94,9 +94,14 @@
                             <i id="nav-side-toggler" class="fa fa-bars"></i>
                             @Html.ActionLink("MangaWorld", "Index", "Home", null, new { @class = "home-logo", @style = "margin-top: 20px;" })
                         </div>
-                        <div class="col-md-6 nav-search">
-                            <i class="fa fa-search"></i>
-                            <input class="search-txt" type="text" placeholder="Search" />
+                        <div class="col-md-4 nav-search">
+                            <form action="@Url.Action("Search", "Home")" method="post">
+                                <i class="fa fa-search"></i>
+                                <input name="nameSrc" class="search-txt" type="text" placeholder="Search" />
+                                <input type="submit" hidden />
+                            </form>
+                        </div>
+                        <div class="col-md-2">
                             <a href="Index" class="fa fa-user-circle user-menu"></a>
                         </div>
                     </nav>

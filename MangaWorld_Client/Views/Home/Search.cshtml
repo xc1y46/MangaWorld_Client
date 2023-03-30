@@ -1,0 +1,149 @@
+﻿@model PagedList.IPagedList<MangaWorld_Client.Models.Manga>
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    List<Language> lang = (List<Language>)ViewData["Language"];
+    List<Status> status = (List<Status>)ViewData["Status"];
+    List<Genre> genre = (List<Genre>)ViewData["Genre"];
+}
+
+<link href="~/resources/css/search_style.css" rel="stylesheet" />
+<script src="~/resources/javascript/search_script.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#nameSrc').val('@ViewData["CurrName"]');
+        $('#langSrc').val('@ViewData["CurrLang"]');
+        $('#statusSrc').val('@ViewData["CurrStatus"]');
+        $('#genreSrc').val('@ViewData["CurrGenre"]');
+        $('#search-sort-opt').val('@ViewData["CurrSort"]');
+
+        $('#search-sort-opt').change(function () {
+            window.location = '@Url.Action("Search", "Home")' + "?sortOpt=" + this.value + "&nameSrc=" + $('#nameSrc').val() + "&langSrc=" + $('#langSrc').val() + "&statusSrc=" + $('#statusSrc').val() + "&genreSrc=" + $('#genreSrc').val();
+        });
+    });
+</script>
+
+<div class="container search-body">
+    <div class="search-filter-area">
+        <form method="get" action="Search" autocomplete="off">
+            <b>Name</b>
+            <input class="search-control" name="nameSrc" id="nameSrc" type="text" />
+            <br /><br />
+
+            <b>Language</b>
+            <select class="search-control" name="langSrc" id="langSrc">
+                <option value="any">Any</option>
+                @foreach (Language l in lang)
+                {
+                    <option value="@l.LanguageId">@l.LanguageName</option>
+                }
+            </select>
+
+            &nbsp;&nbsp;&nbsp;
+
+            <b>Status</b>
+            <select class="search-control" name="statusSrc" id="statusSrc">
+                <option value="any">Any</option>
+                @foreach (Status s in status)
+                {
+                    <option value="@s.StatusId">@s.StatusName</option>
+                }
+            </select>
+
+            <input type="hidden" name="genreSrc" id="genreSrc" />
+
+            <br /><br />
+            <b>Genres/Tags</b>
+            <br />
+            <div class="search-genre-area">
+                @foreach (Genre g in genre.OrderByDescending(g => g.GenreLevel))
+                {
+                    <div class="search-genre search-control">
+                        <b>@g.GenreId</b>
+                    </div>
+                }
+            </div>
+
+            <br /><br />
+            <div class="searc-btn-area">
+                <input class="search-control search-btn" type="reset" value="RESET" id="resetBtn" />
+                <input class="search-control search-btn" type="submit" value="SEARCH" />
+            </div>
+        </form>
+    </div>
+
+    <div class="search-opt-area">
+        <b>Sort by</b>
+        <select id="search-sort-opt">
+            <option value="timeDes">Year descending</option>
+            <option value="timeAsc">Year ascending</option>
+            <option value="scoreDes">Highest rating</option>
+            <option value="scoreAsc">Lowest rating</option>
+            <option value="followDes">Most bookmarked</option>
+            <option value="followAsc">Least bookmarked</option>
+        </select>
+    </div>
+
+    <div class="search-result">
+        @if (Model.Count == 0)
+        {
+            <h1>No results</h1>
+        }
+        else
+        {
+            <h1>@ViewData["ResultCount"].ToString() result(s)</h1>
+            <br />
+            foreach (Manga m in Model)
+            {
+                <div class="search-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                    <div class="search-manga-cover">
+                        <img src="@path@m.MangaPath@Utils.CoverArt" class="search-manga-art" />
+                    </div>
+                    <div class="search-manga-content">
+                        <img class="search-lang-flag flag-@m.LanguageId" />
+                        <b class="search-manga-title">@m.Title</b>
+
+                        <div class="search-manga-pub-area">
+                            <i class="search-manga-pub-status status-@m.Status fa fa-circle"></i>
+                            <b>PUBLICATION: @m.ReleasedYear, </b>
+                            <i>@m.Status1.StatusName</i>
+                        </div>
+                        <br />
+                        <i>@m.Author.AuthorName</i>
+
+                        <br />
+                        <b>
+                            Chapter @Utils.getLastOrFirstChapters(m, true).ChapterOrder  @Utils.getLastOrFirstChapters(m, true).ChapterTitle
+                        </b>
+                        <br />
+                        <i class="search-manga-stat fa fa-star">
+                            <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                        </i>
+                        <i class="search-manga-stat fa fa-bookmark">
+                            <span>@Utils.getBookmarkCount(m)</span>
+                        </i>
+                        <i class="search-manga-stat fa fa-comments">
+                            <span>@m.Comment.Count</span>
+                        </i>
+                        <br />
+                        @foreach (Genre g in Utils.getGenre(m))
+                        {
+                            <div class="search-manga-genre genre-level-@g.GenreLevel">
+                                <b>@g.GenreId</b>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, Page => Url.Action("Search", "Home", new { Page, nameSrc = ViewData["CurrName"], langSrc = ViewData["CurrLang"], statusSrc = ViewData["CurrStatus"], genreSrc = ViewData["CurrGenre"], sortOpt = ViewData["CurrSort"] }))
+    </div>
+</div>

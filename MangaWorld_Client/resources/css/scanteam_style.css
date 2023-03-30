@@ -1,0 +1,114 @@
+﻿.scanteam-body {
+    text-align: center;
+}
+
+.scanteam-head {
+    text-align: initial;
+    border-bottom: 2px solid #302c2c;
+    margin: 10px auto 30px auto;
+    padding: 10px;
+}
+
+    .scanteam-head .fa {
+        font-size: 35px;
+    }
+
+    .scanteam-head b {
+        text-decoration: underline;
+        font-size: 35px;
+    }
+
+.scanteam-title {
+    padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+.scanteam-head p {
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
+    border-radius: 15px;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 5px 20px 5px 20px;
+    height: 100px;
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.scanteam-manga-area {
+    text-align: left;
+}
+
+.scanteam-manga {
+    display: flex;
+    text-align: initial;
+    width: 90%;
+    padding: 8px;
+    margin: 10px auto 10px auto;
+    border-left: 2px solid var(--mainCol);
+    border-radius: 8px;
+    background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
+}
+
+.scanteam-manga-cover, .author-manga-content {
+    margin-right: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.scanteam-manga-pub-area {
+    float: right;
+}
+
+.scanteam-manga-content {
+    margin-left: 10px;
+    text-align: left;
+    width: 80%;
+    height: 250px;
+    margin-bottom: 10px;
+}
+
+.scanteam-manga-art {
+    float: left;
+    height: 150px;
+    aspect-ratio: 3/4;
+}
+
+.scanteam-manga-detail-area {
+    border-bottom: 2px solid #302c2c;
+    padding: 10px;
+}
+
+.scanteam-manga-title {
+    text-overflow: ellipsis;
+    font-size: 16px;
+}
+
+.scanteam-lang-flag {
+    aspect-ratio: 4/2.5;
+    width: 20px;
+}
+
+.scanteam-chapter-area {
+    margin-top: 20px;
+    overflow-y: scroll;
+    height: 60%;
+}
+
+.scanteam-chapter-item {
+    display: block;
+    padding: 10px;
+    border-left: 2px solid var(--mainCol);
+    margin-bottom: 5px;
+    transition: 0.5s;
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
+}
+
+    .scanteam-chapter-item:hover {
+        filter: contrast(65%);
+    }
+
+.scanteam-chapter-item span{
+    float: right;
+}
+

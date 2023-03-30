@@ -115,12 +115,12 @@ body {
 
 .top-nav {
     margin: 5px auto 5px auto;
-    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .layout-head {
+    display: flex;
     height: 65px;
     z-index: 1;
     background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
@@ -160,7 +160,11 @@ body {
         border: 2px solid var(--mainCol);
     }
 
-.nav-search .fa{
+.nav-search form{
+    margin-top: 5px;
+}
+
+.nav-search .fa {
     font-size: 20px;
 }
 
@@ -169,7 +173,7 @@ body {
     background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
     height: 70%;
     border-radius: 15px;
-    width: 40%;
+    width: 60%;
     border: 2px solid var(--mainCol);
     padding: 10px;
     font-weight: bold;
@@ -178,14 +182,15 @@ body {
 }
 
     .search-txt:focus {
-        width: 80%;
+        width: 90%;
     }
 
 .user-menu {
+    display: inline-block;
     text-decoration: none;
     color: var(--txt);
     float: right;
-    font-size: 70px;
+    font-size: 30px;
     padding: 10px;
     border-radius: 15px;
     transition: background-color .5s;

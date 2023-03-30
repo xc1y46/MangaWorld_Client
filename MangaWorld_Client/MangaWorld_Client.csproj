@@ -139,6 +139,7 @@
     <Compile Include="Controllers\GenresController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MangasController.cs" />
+    <Compile Include="Controllers\ScanTeamsController.cs" />
     <Compile Include="Controllers\Utils.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,8 +174,11 @@
     <Content Include="resources\css\genre_style.css" />
     <Content Include="resources\css\layout_style.css" />
     <Content Include="resources\css\manga_style.css" />
+    <Content Include="resources\css\scanteam_style.css" />
+    <Content Include="resources\css\search_style.css" />
     <Content Include="resources\javascript\chapter_script.js" />
     <Content Include="resources\javascript\layout_script.js" />
+    <Content Include="resources\javascript\search_script.js" />
     <Content Include="resources\picture\CN.png" />
     <Content Include="resources\picture\EN.png" />
     <Content Include="resources\picture\VN.png" />
@@ -207,6 +211,8 @@
     <Content Include="Views\Chapters\Index.cshtml" />
     <Content Include="Views\Genres\Index.cshtml" />
     <Content Include="Views\Authors\Index.cshtml" />
+    <Content Include="Views\ScanTeams\Index.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
