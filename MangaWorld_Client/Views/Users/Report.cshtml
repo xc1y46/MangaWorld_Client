@@ -1,0 +1,34 @@
+﻿@model MangaWorld_Client.Models.Manga
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<link href="~/resources/css/user_style.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $('#manga-id-input').val('@ViewData["Manga"]');
+    });
+</script>
+
+<div class="container user-body">
+    <h1>Report this manga?</h1>
+    <i>@Model.Title</i>
+    <hr />
+    <form method="post" action="@Url.Action("ReportResult", "Users")" autocomplete="off">
+        <input type="hidden" id="manga-id-input" name="mangaId"/>
+        <b class="text-danger">@TempData["ReportResult"]</b>
+        <br />
+        <b>Title (Max 100 characters)</b>
+        <br />
+        <input type="text" name="reportTilte" class="search-control" maxlength="100" />
+        <br />
+        <b>Report (Max 200 characters)</b>
+        <br />
+        <textarea name="reportContent" class="search-control user-report-content" maxlength="200"></textarea>
+        <br />
+        <br />
+        <input type="reset" class="search-control search-btn" value="RESET" />
+        <input type="submit" class="search-control search-btn" value="REPORT" />
+    </form>
+</div>

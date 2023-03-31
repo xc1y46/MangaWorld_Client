@@ -24,6 +24,7 @@ namespace MangaWorld_Client.Models
         public string UserName { get; set; }
 
         [Required]
+        [DataType(DataType.Password)]
         public string UserPassword { get; set; }
 
         public string Bookmarks { get; set; }

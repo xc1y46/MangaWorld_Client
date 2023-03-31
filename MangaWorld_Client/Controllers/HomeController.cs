@@ -14,6 +14,7 @@ namespace MangaWorld_Client.Controllers
         private ContextModel db = new ContextModel();
         public ActionResult Index()
         {
+            if (!Utils.optionChecking()) Utils.setOptions();
             var manga = db.Manga.Where(m => m.IsPublished && !m.Deleted).Include(m => m.Author).Include(m => m.Language).Include(m => m.Status1);
             return View(manga.ToList());
         }
@@ -27,7 +28,6 @@ namespace MangaWorld_Client.Controllers
             ViewData["Language"] = db.Language.ToList();
             ViewData["Status"] = db.Status.ToList();
             ViewData["Genre"] = db.Genre.ToList();
-
 
             ViewData["CurrName"] = String.IsNullOrEmpty(nameSrc) ? "" : nameSrc;
             ViewData["CurrStatus"] = String.IsNullOrEmpty(statusSrc) ? "any" : statusSrc;
@@ -71,57 +71,84 @@ namespace MangaWorld_Client.Controllers
 
             if (!String.IsNullOrEmpty(nameSrc))
             {
-
+                if (nameSrc.Contains(' '))
+                {
+                    string[] tempName = nameSrc.Split(' ');
+                    foreach(string s in tempName)
+                    {
+                        if (!String.IsNullOrEmpty(s))
+                        {
+                            temp = temp.Where(m => m.Title.ToLower().Contains(s.ToLower()) || m.AltTitle.ToLower().Contains(s.ToLower()));
+                        }
+                    }
+                }
+                else
+                {
+                    temp = temp.Where(m => m.Title.ToLower().Contains(nameSrc.ToLower()) || m.AltTitle.ToLower().Contains(nameSrc.ToLower()));
+                }
             }
 
             List<Manga> mangas = temp.ToList();
 
             ViewData["ResultCount"] = mangas.Count;
 
-            switch (sortOpt)
-            {
-                case "timeDes":
-                    {
-                        mangas.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
-                        mangas.Reverse();
-                        break;
-                    }
-                case "timeAsc":
-                    {
-                        mangas.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
-                        break;
-                    }
-                case "scoreDes":
-                    {
-                        mangas.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
-                        mangas.Reverse();
-                        break;
-                    }
-                case "scoreAsc":
-                    {
-                        mangas.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
-                        break;
-                    }
-                case "followDes":
-                    {
-                        mangas.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
-                        mangas.Reverse();
-                        break;
-                    }
-                case "followAsc":
-                    {
-                        mangas.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
-                        break;
-                    }
-                default:
-                    {
-                        mangas.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
-                        mangas.Reverse();
-                        break;
-                    }
-            }
+            mangas = Utils.sortManga(sortOpt, mangas);
 
             return View(mangas.ToPagedList(PageNumber, tempPageSize));
+        }
+
+        public ActionResult Popular()
+        {
+            var manga = db.Manga.Where(m => m.IsPublished && !m.Deleted).Include(m => m.Author).Include(m => m.Language).Include(m => m.Status1);
+            return View(manga.ToList());
+        }
+
+        public void toggle_darkmode()
+        {
+            if (!Utils.optionChecking()) Utils.setOptions();
+            if ((bool)Session["DarkMode"])
+            {
+                Session["DarkMode"] = false;
+            }
+            else if (!(bool)Session["DarkMode"])
+            {
+                Session["DarkMode"] = true;
+            }
+        }
+
+        public void toggle_pagenum()
+        {
+            if (!Utils.optionChecking()) Utils.setOptions();
+            if ((bool)Session["PageNum"])
+            {
+                Session["PageNum"] = false;
+            }
+            else if (!(bool)Session["PageNum"])
+            {
+                Session["PageNum"] = true;
+            }
+        }
+
+        public void toggle_pageadjust()
+        {
+            if (!Utils.optionChecking()) Utils.setOptions();
+            if ((bool)Session["PageAdjust"])
+            {
+                Session["PageAdjust"] = false;
+            }
+            else if (!(bool)Session["PageAdjust"])
+            {
+                Session["PageAdjust"] = true;
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

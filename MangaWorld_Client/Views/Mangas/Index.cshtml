@@ -6,14 +6,44 @@
     Layout = "~/Views/Shared/_Layout1.cshtml";
     string path = Utils.Gallery + Model.MangaPath + Utils.CoverArt;
     List<Genre> genres = (List<Genre>)ViewData["Genres"];
-    var chapters = (PagedList.IPagedList<Chapter>)ViewData["Chapter"];
-    bool sort = (bool)ViewData["ChapSortAsc"];
     var ratingDetail = ((List<byte>)ViewData["Rating"]).GroupBy(x => x).ToDictionary(y => y.Key, y => y.Count()).OrderBy(x => x.Key);
     float score = Utils.getRatingScore((List<byte>)ViewData["Rating"]);
+    bool bookmarked = (bool)ViewData["UserBookmark"];
+    bool sort = (bool)ViewData["ChapSortAsc"];
+    bool enableComments = (bool)ViewData["EnableComment"];
+    int userId = (int)ViewData["UserId"];
+
+    PagedList.IPagedList<Comment> comments = null;
+    PagedList.IPagedList<Chapter> chapters = null;
+
+    if (enableComments)
+    {
+        comments = (PagedList.IPagedList<Comment>)ViewData["Comment"];
+    }
+    else
+    {
+
+        chapters = (PagedList.IPagedList<Chapter>)ViewData["Chapter"];
+    }
 }
 <link href="~/resources/css/manga_style.css" rel="stylesheet" />
+<script src="~/resources/javascript/manga_script.js"></script>
 
-<div class="container">
+<script>
+    $(document).ready(function () {
+        var currRate = '@ViewData["UserCurrRating"]';
+        if (currRate != '-1') {
+            $('#rating-input').val(currRate);
+            $('.rate-text').text(currRate);
+        } else {
+            $('#rating-input').val('1');
+            $('.rate-text').text('1');
+        }
+
+        $('#rate-mangaId').val('@Model.MangaId');
+    });
+</script>
+<div class="container manga-body">
     <div class="row manga-head">
         <div class="col-md-3 manga-cover-area">
             <img class="manga-cover-img" src="@path" alt="Cover" />
@@ -73,18 +103,47 @@
     <div class="row manga-opt">
         <button class="manga-opt-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = Model.MangaId, chapOrd = Utils.getLastOrFirstChapters(Model, false).ChapterOrder })'">Start Reading</button>
 
-        <button class="manga-opt-item">Bookmark</button>
+        <button class="manga-opt-item" onclick="location.href='@Url.Action("Bookmark", "Users", new { mangaId = Model.MangaId })'">
+            Bookmark
+            @if (bookmarked)
+            {
+                <i class="fa fa-check"></i>
+            }
+        </button>
 
         <button class="manga-opt-item" id="manga-rate-btn">
             <i class="fa fa-star"></i>
         </button>
 
-        <button class="manga-opt-item">
+        <div id="rate-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <b class="rate-close-btn">&times;</b>
+                    <h3>Rate this manga</h3>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="@Url.Action("Rating", "Users")">
+                        <div>
+                            <input type="hidden" name="mangaId" id="rate-mangaId"/>
+                            <b class="rate-value rate-text"></b>
+                            <span class="fa fa-star rate-value"></span>
+                            <input type="submit" value="RATE" class="rate-submit-btn" />
+                        </div>
+                        <br />
+                        <input type="range" min="1" max="5" id="rating-input" name="ratinginput" />
+                        <br />
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="manga-opt-item" onclick="location.href='@Url.Action("Report", "Users", new { mangaId = Model.MangaId })'">
             <i class="fa fa-exclamation-triangle"></i>
             Report
         </button>
     </div>
-    <div class="row manga-body">
+    <div class="row manga-content">
         <div class="row manga-summary-area">
             <p>
                 <b>
@@ -98,7 +157,7 @@
                 @Html.ActionLink(Model.Author.AuthorName, "Index", "Authors", new { authorId = Model.AuthorId }, new { @class = "manga-detail-item" })
                 <br /><br />
                 <h5 class="manga-detail-header">Language</h5>
-                @Html.ActionLink(Model.Language.LanguageName, "Index", "Home", new { langId = Model.LanguageId }, new { @class = "manga-detail-item" })
+                @Html.ActionLink(Model.Language.LanguageName, "Search", "Home", new { langSrc = Model.LanguageId }, new { @class = "manga-detail-item" })
                 <br /><br />
                 <h5 class="manga-detail-header">Last update(m/d/y)</h5>
                 <span class="manga-detail-item">
@@ -106,57 +165,120 @@
                 </span>
             </div>
             <div class="col-md-9 manga-chapter-area">
-                @if (sort)
+                @if (enableComments)
                 {
-                    <button id="chapter-sort" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, sortAsc = false })'">
+                    <button class="enable-comment-btn" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, commentEnab = false })'">
                         <span>
-                            Sort by descending
+                            CHAPTERS
                         </span>
                     </button>
                 }
                 else
                 {
-                    <button id="chapter-sort" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, sortAsc = true })'">
+                    <button class="enable-comment-btn" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, commentEnab = true })'">
                         <span>
-                            Sort by ascending
+                            COMMENTS
                         </span>
                     </button>
                 }
 
-                <div class="manga-chapter">
-                    @foreach (Chapter c in chapters)
+                <br /><br />
+
+                @if (!enableComments)
+                {
+                    if (sort)
                     {
-                        <button class="manga-chapter-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = c.MangaId, chapOrd = c.ChapterOrder })'">
-                            <div class="manga-chapter-item-left">
-                                <b>Chapter @c.ChapterOrder</b>
-                                <br />
-                                @if (String.IsNullOrEmpty(c.ChapterTitle))
-                                {
-                                    <span>Chapter @c.ChapterOrder</span>
-                                }
-                                else
-                                {
-                                    <span>@c.ChapterTitle</span>
-                                }
-                            </div>
-                            <div class="manga-chapter-item-right">
-                                <i class="fa fa-clock-o">
-                                </i>
-                                @c.UploadDate.ToString("d")
-                                <br />
-                                <i class="fa fa-users">
-                                </i>
-                                @Html.ActionLink(c.ScanTeam.TeamName, "Index", "ScanTeams", new { scanId = c.ScanTeamId }, null)
-                            </div>
+                        <button class="chapter-sort" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, sortAsc = false })'">
+                            <span>
+                                Sort by descending
+                            </span>
                         </button>
                     }
-                </div>
+                    else
+                    {
+                        <button class="chapter-sort" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = Model.MangaId, sortAsc = true })'">
+                            <span>
+                                Sort by ascending
+                            </span>
+                        </button>
+                    }
 
-                <div class="pagination">
-                    @Html.PagedListPager(chapters, Page => Url.Action("Index", "Mangas", new { Page, mangaId = Model.MangaId, sortAsc = sort }))
-                </div>
+                    <div class="manga-chapter">
+                        @if(chapters != null)
+                        {
+                            foreach (Chapter c in chapters)
+                            {
+                                <button class="manga-chapter-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = c.MangaId, chapOrd = c.ChapterOrder })'">
+                                    <div class="manga-chapter-item-left">
+                                        <b>Chapter @c.ChapterOrder</b>
+                                        <br />
+                                        @if (String.IsNullOrEmpty(c.ChapterTitle))
+                                        {
+                                            <span>Chapter @c.ChapterOrder</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@c.ChapterTitle</span>
+                                        }
+                                    </div>
+                                    <div class="manga-chapter-item-right">
+                                        <i class="fa fa-clock-o">
+                                        </i>
+                                        @c.UploadDate.ToString("d")
+                                        <br />
+                                        <i class="fa fa-users">
+                                        </i>
+                                        @Html.ActionLink(c.ScanTeam.TeamName, "Detail", "ScanTeams", new { scanId = c.ScanTeamId }, null)
+                                    </div>
+                                </button>
+                            }
+                        }
+                    </div>
+
+                }
+                else
+                {
+                    <br /><br /><br />
+                    <div class="manga-comments">
+                        @if (comments != null)
+                        {
+                            <div class="manga-comment-item">
+                                <form method="post" action="@Url.Action("Comment", "Users", new { mangaId = Model.MangaId})" autocomplete="off">
+                                    <input type="text" id="commentContent" name="commentContent" placeholder="Write a comment (200 characters)"/>
+                                    <input type="submit" hidden />
+                                </form>
+                            </div>
+                            foreach (Comment c in comments)
+                            {
+                            <div class="manga-comment-item">
+                                <i class="fa fa-user"></i>
+                                <b>@c.User.UserName</b>
+                                @if(c.UserId == userId)
+                                {
+                                    <i class="fa fa-trash del-comment" onclick="location.href='@Url.Action("DeleteComment", "Users", new { commentId = c.CommentId, mangaId = Model.MangaId })'"></i>
+                                }
+                                <span class="comment-date">@c.CommentDate.ToString("d")</span>
+                                <hr />
+                                <p class="manga-comment-content">
+                                    @c.CommentContent
+                                </p>
+                            </div>
+                            }
+                        }
+                    </div>
+                }
+
+            <div class="pagination">
+                @if (enableComments)
+                {
+                    @Html.PagedListPager(comments, Page => Url.Action("Index", "Mangas", new { Page, mangaId = Model.MangaId, sortAsc = ViewData["ChapSortAsc"], commentEnab = ViewData["EnableComment"] }))
+                }
+                else
+                {
+                    @Html.PagedListPager(chapters, Page => Url.Action("Index", "Mangas", new { Page, mangaId = Model.MangaId, sortAsc = ViewData["ChapSortAsc"], commentEnab = ViewData["EnableComment"] }))
+                }
+            </div>
             </div>
         </div>
     </div>
 </div>
-

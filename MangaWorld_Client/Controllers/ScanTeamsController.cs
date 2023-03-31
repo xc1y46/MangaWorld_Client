@@ -15,8 +15,38 @@ namespace MangaWorld_Client.Controllers
     {
         private ContextModel db = new ContextModel();
 
+        public ActionResult Index(string teamName, int? PageSize, int? Page, string langSrc)
+        {
+            int tempPageSize = (PageSize ?? 6);
+            int PageNumber = (Page ?? 1);
+            ViewData["Language"] = db.Language.ToList();
+
+            ViewData["CurrTeamName"] = (String.IsNullOrEmpty(teamName)) ? "" : teamName;
+            ViewData["CurrLang"] = String.IsNullOrEmpty(langSrc) ? "any" : langSrc;
+
+            var scanTeams = db.ScanTeam.Include(c => c.Chapter);
+
+            if (!String.IsNullOrEmpty(langSrc) && langSrc != "any")
+            {
+                foreach (Language l in (List<Language>)ViewData["Language"])
+                {
+                    if (l.LanguageId == langSrc)
+                    {
+                        scanTeams = scanTeams.Where(m => m.LanguageId == langSrc);
+                    }
+                }
+            }
+
+            if (!String.IsNullOrEmpty(teamName))
+            {
+                scanTeams = scanTeams.Where(s => s.TeamName.ToLower().Contains(teamName.ToLower()));
+            }
+
+            return View(scanTeams.OrderByDescending(s => s.Chapter.Count).ToPagedList(PageNumber, tempPageSize));
+        }
+
         // GET: ScanTeams
-        public ActionResult Index(string scanId, int? PageSize, int? Page)
+        public ActionResult Detail(string scanId, int? PageSize, int? Page)
         {
             if (scanId == null)
             {

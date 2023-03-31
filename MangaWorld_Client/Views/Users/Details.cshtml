@@ -1,0 +1,108 @@
+﻿@model PagedList.IPagedList<MangaWorld_Client.Models.Manga>
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    User user = (User)ViewData["User"];
+}
+
+<link href="~/resources/css/user_style.css" rel="stylesheet" />
+<script>
+    $(document).ready(function () {
+        $('#user-book-sort-opt').val('@ViewData["CurrSort"]');
+        $('#user-book-sort-opt').change(function () {
+            window.location = '@Url.Action("Details", "Users")' + "?sortOpt=" + this.value;
+        });
+    });
+</script>
+
+<div class="container user-detail-body">
+    <div class="user-detail-head">
+        <div class="user-detail-head-left">
+            <i class="fa fa-user-circle"></i>
+            <br /><br />
+            <button class="search-control search-btn" onclick="location.href='@Url.Action("Logout", "Users")'">LOG OUT</button>
+        </div>
+        <div class="user-detail-head-right">
+            <h2>Users: @user.UserName</h2>
+            <b>Ratings made: @user.Rating.Count</b>
+            <br />
+            <b>Comments written: @user.Comment.Count</b>
+        </div>
+        
+    </div>
+    <div class="user-detail-content">
+        <div>
+            <b>Sort by</b>
+            <select id="user-book-sort-opt">
+                <option value="timeDes">Year descending</option>
+                <option value="timeAsc">Year ascending</option>
+                <option value="scoreDes">Highest rating</option>
+                <option value="scoreAsc">Lowest rating</option>
+                <option value="followDes">Most bookmarked</option>
+                <option value="followAsc">Least bookmarked</option>
+            </select>
+        </div>
+
+        <div class="user-bookmark-area">
+            @if (Model.Count == 0)
+            {
+                <h1>No bookmarks</h1>
+            }
+            else
+            {
+                <h1>@ViewData["BookmarkCount"].ToString() bookmark(s)</h1>
+                <br />
+                foreach (Manga m in Model)
+                {
+                    <div class="user-detail-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                        <div class="user-detail-manga-cover">
+                            <img src="@path@m.MangaPath@Utils.CoverArt" class="user-detail-manga-art" />
+                        </div>
+                        <div class="user-detail-manga-content">
+                            <img class="user-detail-lang-flag flag-@m.LanguageId" />
+                            <b class="user-detail-manga-title">@m.Title</b>
+
+                            <div class="user-detail-manga-pub-area">
+                                <i class="user-detail-manga-pub-status status-@m.Status fa fa-circle"></i>
+                                <b>PUBLICATION: @m.ReleasedYear, </b>
+                                <i>@m.Status1.StatusName</i>
+                            </div>
+                            <br />
+                            <i>@m.Author.AuthorName</i>
+
+                            <br />
+                            <b>
+                                Chapter @Utils.getLastOrFirstChapters(m, true).ChapterOrder  @Utils.getLastOrFirstChapters(m, true).ChapterTitle
+                            </b>
+                            <br />
+                            <i class="user-detail-manga-stat fa fa-star">
+                                <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                            </i>
+                            <i class="user-detail-manga-stat fa fa-bookmark">
+                                <span>@Utils.getBookmarkCount(m)</span>
+                            </i>
+                            <i class="user-detail-manga-stat fa fa-comments">
+                                <span>@m.Comment.Count</span>
+                            </i>
+                            <br />
+                            @foreach (Genre g in Utils.getGenre(m))
+                            {
+                                <div class="user-detail-manga-genre genre-level-@g.GenreLevel">
+                                    <b>@g.GenreId</b>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <div class="pagination">
+            @Html.PagedListPager(Model, Page => Url.Action("Details", "Users", new { Page, sortOpt = ViewData["CurrSort"] }))
+        </div>
+    </div>
+</div>

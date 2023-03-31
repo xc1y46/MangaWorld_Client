@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
+using System.Data.Entity;
 using System.Web;
 using System.Security.Cryptography;
 using System.Text;
@@ -33,7 +35,6 @@ namespace MangaWorld_Client.Controllers
                 return _coverArt;
             }
         }
-
 
         //true if last, false if first
         public static Chapter getLastOrFirstChapters(Manga manga, bool firstOrLast)
@@ -105,6 +106,71 @@ namespace MangaWorld_Client.Controllers
             return bookmark.Count;
         }
 
+        public static List<Manga> getUserBookmark(User user)
+        {
+            ContextModel db = new ContextModel();
+
+            var mangas = db.Manga.AsNoTracking().Include(m => m.Status1).Include(m => m.Author).Include(m => m.Comment).Include(m => m.Language).Where(m => !m.Deleted && m.IsPublished && user.Bookmarks.Contains(m.MangaId)).ToList();
+
+            db.Dispose();
+
+            return mangas;
+        }
+
+        public static List<Manga> sortManga(string SortOpt, List<Manga> mangas)
+        {
+            switch (SortOpt)
+            {
+                case "mostInteract":
+                    {
+                        mangas.Sort((x, y) => (Utils.getRating(x).Count + x.Comment.Count).CompareTo(Utils.getRating(y).Count + y.Comment.Count));
+                        mangas.Reverse();
+                        break;
+                    }
+                case "timeDes":
+                    {
+                        mangas.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
+                        mangas.Reverse();
+                        break;
+                    }
+                case "timeAsc":
+                    {
+                        mangas.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
+                        break;
+                    }
+                case "scoreDes":
+                    {
+                        mangas.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
+                        mangas.Reverse();
+                        break;
+                    }
+                case "scoreAsc":
+                    {
+                        mangas.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
+                        break;
+                    }
+                case "followDes":
+                    {
+                        mangas.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
+                        mangas.Reverse();
+                        break;
+                    }
+                case "followAsc":
+                    {
+                        mangas.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
+                        break;
+                    }
+                default:
+                    {
+                        mangas.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
+                        mangas.Reverse();
+                        break;
+                    }
+            }
+
+            return mangas;
+        }
+
         public static string HashPW(string pass)
         {
             SHA1Managed sha1 = new SHA1Managed();
@@ -117,13 +183,31 @@ namespace MangaWorld_Client.Controllers
             return pw.ToString();
         }
 
-        public static bool SessionChecking()
+        public static bool userChecking()
         {
             return (
                 HttpContext.Current != null &&
                 HttpContext.Current.Session != null &&
-                HttpContext.Current.Session["Username"] != null
+                HttpContext.Current.Session["UserId"] != null &&
+                HttpContext.Current.Session["UserName"] != null
                 );
+        }
+
+        public static bool optionChecking()
+        {
+            return (
+                HttpContext.Current.Session["DarkMode"] != null &&
+                HttpContext.Current.Session["PageNum"] != null &&
+                HttpContext.Current.Session["PageAdjust"] != null
+                );
+        }
+
+        //true if dark, false if light
+        public static void setOptions()
+        {
+            HttpContext.Current.Session["DarkMode"] = true;
+            HttpContext.Current.Session["PageNum"] = false;
+            HttpContext.Current.Session["PageAdjust"] = false;
         }
     }
 }

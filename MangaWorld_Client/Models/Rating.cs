@@ -19,7 +19,6 @@ namespace MangaWorld_Client.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UserId { get; set; }
 
-        [Key]
         [Column(Order = 2)]
         [Range(1,5)]
         public byte Score { get; set; }

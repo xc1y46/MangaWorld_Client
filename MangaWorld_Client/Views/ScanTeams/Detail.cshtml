@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<MangaWorld_Client.Models.Manga>
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    ScanTeam scanTeam = (ScanTeam)ViewData["ScanTeam"];
+}
+
+<link href="~/resources/css/scanteam_style.css" rel="stylesheet" />
+
+<div class="container scanteam-body">
+    <div class="row scanteam-head">
+        <i class="fa fa-users"></i>
+        <b class="scanteam-title">@scanTeam.TeamName</b>
+
+        @if (!String.IsNullOrEmpty(scanTeam.TeamDescription))
+        {
+            <p>@scanTeam.TeamDescription</p>
+        }
+        else
+        {
+            <p><i>No description</i></p>
+        }
+
+        <br />
+        <span>Socials:</span>
+        <br />
+        @if (!String.IsNullOrEmpty(scanTeam.TeamSocials))
+        {
+            foreach (string s in scanTeam.TeamSocials.Split('*'))
+            {
+                if (!String.IsNullOrEmpty(s))
+                {
+                    <a href="@s">@s</a><br />
+                }
+            }
+        }
+    </div>
+
+    <div class="scanteam-manga-area">
+        <h2>Uploads:</h2>
+        @foreach (Manga m in Model)
+        {
+        <div class="scanteam-manga">
+            <div class="scanteam-manga-cover">
+                <img src="@path@m.MangaPath@Utils.CoverArt" class="scanteam-manga-art" />
+            </div>
+            <div class="scanteam-manga-content">
+                <div class="scanteam-manga-detail-area">
+                    <img class="scanteam-lang-flag flag-@m.LanguageId" />
+                    <b class="scanteam-manga-title">@m.Title</b>
+                    <br />
+                    <i class="scanteam-manga-title">@m.Author.AuthorName</i>
+                    
+                    <br />
+                    <i class="scanteam-manga-pub-status status-@m.Status fa fa-circle"></i>
+                    <b>PUBLICATION: @m.ReleasedYear, </b>
+                    <i>@m.Status1.StatusName</i>
+                </div>
+
+                <div class="scanteam-chapter-area">
+                    @foreach (Chapter c in m.Chapter.OrderByDescending(c => c.UploadDate))
+                    {
+                        <div class="scanteam-chapter-item" onclick="location.href='@Url.Action("Index", "Chapters", new { mangaId = m.MangaId, chapOrd = c.ChapterOrder })'">
+                            <b>Chapter @c.ChapterOrder @c.ChapterTitle</b>
+                            <span>
+                                <i class="fa fa-clock-o"></i>
+                                @c.UploadDate.ToString("d")
+                            </span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+    <div class="pagination">
+        @Html.PagedListPager(Model, Page => Url.Action("Index", "Chapters", new { Page, scanId = scanTeam.ScanTeamId}))
+    </div>
+</div>

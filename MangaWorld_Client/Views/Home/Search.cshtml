@@ -30,7 +30,7 @@
 
 <div class="container search-body">
     <div class="search-filter-area">
-        <form method="get" action="Search" autocomplete="off">
+        <form method="post" action="@Url.Action("Search", "Home")" autocomplete="off">
             <b>Name</b>
             <input class="search-control" name="nameSrc" id="nameSrc" type="text" />
             <br /><br />

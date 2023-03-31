@@ -1,0 +1,175 @@
+﻿@model IEnumerable<MangaWorld_Client.Models.Manga>
+@using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    int resultCount = 3;
+}
+<link href="~/resources/css/popular_style.css" rel="stylesheet" />
+
+<div class="container pop-body">
+    <div class="pop-content pop-top-recent">
+        <h1>RECENT BEST</h1>
+        @{
+            List<Manga> tempModel = Model.OrderByDescending(m => m.ReleasedYear).ToList();
+            List<Manga> sortModel = new List<Manga>();
+            for (int i = 0; i < resultCount; i++)
+            {
+                sortModel.Add(tempModel[i]);
+            }
+            sortModel = Utils.sortManga("scoreDes", sortModel);
+            foreach(Manga m in sortModel)
+            {
+                <div class="pop-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                    <div class="pop-manga-cover">
+                        <img src="@path@m.MangaPath@Utils.CoverArt" class="pop-manga-art" />
+                    </div>
+                    <div class="pop-manga-content">
+                        <img class="pop-lang-flag flag-@m.LanguageId" />
+                        <b class="pop-manga-title">@m.Title</b>
+
+                        <div class="pop-manga-pub-area">
+                            <i class="pop-manga-pub-status status-@m.Status fa fa-circle"></i>
+                            <b>PUBLICATION: @m.ReleasedYear, </b>
+                            <i>@m.Status1.StatusName</i>
+                        </div>
+                        <br />
+                        <i>@m.Author.AuthorName</i>
+
+                        <br />
+                        <b>
+                            Chapter @Utils.getLastOrFirstChapters(m, true).ChapterOrder  @Utils.getLastOrFirstChapters(m, true).ChapterTitle
+                        </b>
+                        <br />
+                        <i class="pop-manga-stat fa fa-star">
+                            <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                        </i>
+                        <i class="pop-manga-stat fa fa-bookmark">
+                            <span>@Utils.getBookmarkCount(m)</span>
+                        </i>
+                        <i class="pop-manga-stat fa fa-comments">
+                            <span>@m.Comment.Count</span>
+                        </i>
+                        <br />
+                        @foreach (Genre g in Utils.getGenre(m))
+                {
+                            <div class="pop-manga-genre genre-level-@g.GenreLevel">
+                                <b>@g.GenreId</b>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="pop-content pop-top-interact">
+        <h1>MOST INTERACTIVE</h1>
+        @{
+            tempModel = Utils.sortManga("mostInteract", Model.ToList());
+            sortModel = new List<Manga>();
+            for (int i = 0; i < resultCount; i++)
+            {
+                sortModel.Add(tempModel[i]);
+            }
+            foreach (Manga m in sortModel)
+            {
+                <div class="pop-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                    <div class="pop-manga-cover">
+                        <img src="@path@m.MangaPath@Utils.CoverArt" class="pop-manga-art" />
+                    </div>
+                    <div class="pop-manga-content">
+                        <img class="pop-lang-flag flag-@m.LanguageId" />
+                        <b class="pop-manga-title">@m.Title</b>
+
+                        <div class="pop-manga-pub-area">
+                            <i class="pop-manga-pub-status status-@m.Status fa fa-circle"></i>
+                            <b>PUBLICATION: @m.ReleasedYear, </b>
+                            <i>@m.Status1.StatusName</i>
+                        </div>
+                        <br />
+                        <i>@m.Author.AuthorName</i>
+
+                        <br />
+                        <b>
+                            Chapter @Utils.getLastOrFirstChapters(m, true).ChapterOrder  @Utils.getLastOrFirstChapters(m, true).ChapterTitle
+                        </b>
+                        <br />
+                        <i class="pop-manga-stat fa fa-star">
+                            <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                        </i>
+                        <i class="pop-manga-stat fa fa-bookmark">
+                            <span>@Utils.getBookmarkCount(m)</span>
+                        </i>
+                        <i class="pop-manga-stat fa fa-comments">
+                            <span>@m.Comment.Count</span>
+                        </i>
+                        <br />
+                        @foreach (Genre g in Utils.getGenre(m))
+                        {
+                            <div class="pop-manga-genre genre-level-@g.GenreLevel">
+                                <b>@g.GenreId</b>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="pop-content pop-top-rating">
+        <h1>ALL TIME BEST</h1>
+        @{
+            tempModel = Utils.sortManga("scoreDes", Model.ToList());
+            sortModel = new List<Manga>();
+            for (int i = 0; i < resultCount; i++)
+            {
+                sortModel.Add(tempModel[i]);
+            }
+            foreach (Manga m in sortModel)
+            {
+                <div class="pop-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
+                    <div class="pop-manga-cover">
+                        <img src="@path@m.MangaPath@Utils.CoverArt" class="pop-manga-art" />
+                    </div>
+                    <div class="pop-manga-content">
+                        <img class="pop-lang-flag flag-@m.LanguageId" />
+                        <b class="pop-manga-title">@m.Title</b>
+
+                        <div class="pop-manga-pub-area">
+                            <i class="pop-manga-pub-status status-@m.Status fa fa-circle"></i>
+                            <b>PUBLICATION: @m.ReleasedYear, </b>
+                            <i>@m.Status1.StatusName</i>
+                        </div>
+                        <br />
+                        <i>@m.Author.AuthorName</i>
+
+                        <br />
+                        <b>
+                            Chapter @Utils.getLastOrFirstChapters(m, true).ChapterOrder  @Utils.getLastOrFirstChapters(m, true).ChapterTitle
+                        </b>
+                        <br />
+                        <i class="pop-manga-stat fa fa-star">
+                            <span>@Utils.getRatingScore(Utils.getRating(m)).ToString("0.00")</span>
+                        </i>
+                        <i class="pop-manga-stat fa fa-bookmark">
+                            <span>@Utils.getBookmarkCount(m)</span>
+                        </i>
+                        <i class="pop-manga-stat fa fa-comments">
+                            <span>@m.Comment.Count</span>
+                        </i>
+                        <br />
+                        @foreach (Genre g in Utils.getGenre(m))
+                        {
+                            <div class="pop-manga-genre genre-level-@g.GenreLevel">
+                                <b>@g.GenreId</b>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

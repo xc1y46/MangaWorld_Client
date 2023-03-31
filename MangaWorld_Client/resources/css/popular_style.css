@@ -1,43 +1,16 @@
-﻿.search-body {
-    text-align: center;
+﻿.pop-content{
+    border: 5px dashed var(--mainCol);
+    border-radius: 30px;
+    padding: 20px;
+    margin: 20px
 }
 
-.search-filter-area {
-    text-align: left;
+.pop-content h1 {
     border-bottom: 2px solid #302c2c;
-    margin: 30px auto 10px auto;
+    font-style: italic;
 }
 
-.search-genre {
-    transition: 0.5s;
-    border: none;
-    display: inline-block;
-}
-
-#nameSrc{
-    width: 50%;
-}
-
-#genreSrc {
-    width: 500px;
-}
-
-.searc-btn-area{
-    text-align: center;
-}
-
-#search-sort-opt {
-    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
-    color: var(--txt);
-    border: 2px solid var(--mainCol);
-    margin-right: 7px;
-    padding: 10px;
-    transition: 0.5s;
-    border-radius: 10px;
-    font-weight: bolder;
-}
-
-.search-manga {
+.pop-manga {
     text-align: initial;
     width: 90%;
     padding: 8px;
@@ -48,51 +21,51 @@
     background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
 }
 
-    .search-manga:hover {
+    .pop-manga:hover {
         filter: contrast(65%);
     }
 
-.search-manga-cover, .search-manga-content {
+.pop-manga-cover, .pop-manga-content {
     margin-right: 5px;
     display: inline-block;
     vertical-align: middle;
 }
 
-.search-manga-pub-area {
+.pop-manga-pub-area {
     float: right;
 }
 
-.search-manga-content {
+.pop-manga-content {
     text-align: left;
     width: 80%;
 }
 
-.search-manga-art {
+.pop-manga-art {
     float: left;
     height: 140px;
     aspect-ratio: 3/4;
 }
 
-.search-manga-title {
+.pop-manga-title {
     text-overflow: ellipsis;
     font-size: 16px;
 }
 
-.search-lang-flag {
+.pop-lang-flag {
     aspect-ratio: 4/2.5;
     width: 20px;
 }
 
-.search-manga-stat {
+.pop-manga-stat {
     color: var(--mainCol);
     font-size: 17px;
 }
 
-    .search-manga-stat span {
+    .pop-manga-stat span {
         color: var(--txt);
     }
 
-.search-manga-genre {
+.pop-manga-genre {
     display: inline-block;
     padding: 5px;
     color: var(--txt);

@@ -112,3 +112,37 @@
     float: right;
 }
 
+.scanteam-list-head {
+    padding: 10px;
+    border-bottom: 2px solid #302c2c;
+    margin-bottom: 10px;
+}
+
+.scanteam-list-area{
+    text-align: center;
+}
+
+.scanteam-list-item {
+    text-align: center;
+    display: inline-block;
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)));
+    border-left: 2px solid var(--mainCol);
+    padding: 10px;
+    margin: auto 20px 10px auto;
+    border-radius: 5px;
+    transition: 0.5s;
+}
+
+    .scanteam-list-item:hover {
+        filter: contrast(65%);
+    }
+
+.scanteam-list-item-cover, .scanteam-list-item-content {
+    text-align: left;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.scanteam-list-item-cover .fa {
+    font-size: 30px;
+}

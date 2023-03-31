@@ -95,3 +95,7 @@
     max-height: 90vh;
     min-height: 90vh;
 }
+
+.page-num-enable{
+    display: block;
+}

@@ -9,6 +9,8 @@ namespace MangaWorld_Client.Models
     [Table("Comment")]
     public partial class Comment
     {
+        public int CommentId { get; set; }
+
         [Key]
         [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

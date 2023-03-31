@@ -89,6 +89,29 @@
     object-fit: cover;
 }
 
+.search-control {
+    border: 2px solid var(--mainCol);
+    color: var(--txt);
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    transition: 0.5s;
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)));
+}
+
+.search-btn {
+    background-color: var(--mainCol);
+    font-weight: bolder;
+    font-size: 17px;
+    width: 150px;
+    margin-bottom: 20px;
+    transition: 0.2s;
+}
+
+    .search-btn:active {
+        background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)));
+    }
+
 body {
     background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
     color: var(--txt);
@@ -99,7 +122,7 @@ body {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 2;
+    z-index: 3;
     top: 0;
     left: 0;
     background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
@@ -122,7 +145,7 @@ body {
 .layout-head {
     display: flex;
     height: 65px;
-    z-index: 1;
+    z-index: 2;
     background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
     border-bottom: 2px solid var(--mainCol);
     transition: background-color .5s;
@@ -243,3 +266,11 @@ body {
     .side-nav-opt:hover {
         background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
     }
+
+.layout-user-area {
+    text-align: left;
+}
+
+layout-user-area a, layout-user-area h4 {
+    display: inline-block;
+}

@@ -1,32 +1,32 @@
-﻿.search-body {
+﻿user-body {
     text-align: center;
 }
 
-.search-filter-area {
-    text-align: left;
+.user-detail-head {
+    text-align: initial;
     border-bottom: 2px solid #302c2c;
-    margin: 30px auto 10px auto;
+    margin: 10px auto 30px auto;
+    padding: 10px;
+    display: flex;
 }
 
-.search-genre {
-    transition: 0.5s;
-    border: none;
+.user-detail-head-left, user-detail-head-right {
     display: inline-block;
 }
 
-#nameSrc{
-    width: 50%;
-}
-
-#genreSrc {
-    width: 500px;
-}
-
-.searc-btn-area{
+.user-detail-head-left {
+    background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
+    border-radius: 15px;
+    padding: 10px;
     text-align: center;
+    margin-right: 10px;
 }
 
-#search-sort-opt {
+.user-detail-head-left .fa{
+    font-size: 50px;
+}
+
+#user-book-sort-opt {
     background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)) );
     color: var(--txt);
     border: 2px solid var(--mainCol);
@@ -37,7 +37,7 @@
     font-weight: bolder;
 }
 
-.search-manga {
+.user-detail-manga {
     text-align: initial;
     width: 90%;
     padding: 8px;
@@ -48,55 +48,62 @@
     background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
 }
 
-    .search-manga:hover {
+    .user-detail-manga:hover {
         filter: contrast(65%);
     }
 
-.search-manga-cover, .search-manga-content {
+.user-detail-manga-cover, .user-detail-manga-content {
     margin-right: 5px;
     display: inline-block;
     vertical-align: middle;
 }
 
-.search-manga-pub-area {
+.user-detail-manga-pub-area {
     float: right;
 }
 
-.search-manga-content {
+.user-detail-manga-content {
     text-align: left;
     width: 80%;
 }
 
-.search-manga-art {
+.user-detail-manga-art {
     float: left;
     height: 140px;
     aspect-ratio: 3/4;
 }
 
-.search-manga-title {
+.user-detail-manga-title {
     text-overflow: ellipsis;
     font-size: 16px;
 }
 
-.search-lang-flag {
+.user-detail-lang-flag {
     aspect-ratio: 4/2.5;
     width: 20px;
 }
 
-.search-manga-stat {
+.user-detail-manga-stat {
     color: var(--mainCol);
     font-size: 17px;
 }
 
-    .search-manga-stat span {
+    .user-detail-manga-stat span {
         color: var(--txt);
     }
 
-.search-manga-genre {
+.user-detail-manga-genre {
     display: inline-block;
     padding: 5px;
     color: var(--txt);
     font-size: 12px;
     border-radius: 7px;
     margin: 2px;
+}
+
+.user-report-content{
+    min-width: 550px;
+    min-height: 150px;
+    max-height: 250px;
+    max-width: 100%;
 }

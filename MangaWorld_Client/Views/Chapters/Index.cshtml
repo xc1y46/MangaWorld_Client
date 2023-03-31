@@ -10,7 +10,6 @@
 }
 
 <link href="~/resources/css/chapter_style.css" rel="stylesheet" />
-<script src="~/resources/javascript/chapter_script.js"></script>
 <script>
     $(document).ready(function () {
         $('#chapter-nav-list').val('@Model.ChapterOrder');
@@ -20,16 +19,16 @@
     });
 </script>
 
-<div class="container" oncontextmenu="return false">
+<div class="container chapter-body" oncontextmenu="return false">
     <div class="row chapter-head">
         @Html.ActionLink(Model.Manga.Title, "Index", "Mangas", new { mangaId = Model.MangaId }, new { @class = "chapter-detail-btn" })
         <br />
         <span>Chapter @Model.ChapterOrder @Model.ChapterTitle</span>
         <br />
         <i class="fa fa-users"></i>
-        @Html.ActionLink(Model.ScanTeam.TeamName, "Index", "ScanTeams", new { scanId = Model.ScanTeamId }, new { @class = "chapter-scanteam" })
+        @Html.ActionLink(Model.ScanTeam.TeamName, "Detail", "ScanTeams", new { scanId = Model.ScanTeamId }, new { @class = "chapter-scanteam" })
     </div>
-    <div class="row chapter-body">
+    <div class="row chapter-content">
         <div class="row chapter-nav-area">
             <select id="chapter-nav-list" class="col-md-4">
                 @{

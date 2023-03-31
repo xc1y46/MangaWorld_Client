@@ -1,0 +1,27 @@
+﻿@model MangaWorld_Client.Models.User
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+<link href="~/resources/css/user_style.css" rel="stylesheet" />
+
+<div class="container user-body">
+    <h1>Log in</h1>
+    <hr />
+    <form method="post" action="@Url.Action("LoginResult", "Users")" autocomplete="off">
+        <b class="text-danger">@TempData["LoginResult"]</b>
+        <br />
+        <b>Username</b>
+        <input type="text" name="username" class="search-control" />
+        <br />
+        <b>Password</b>
+        <input type="password" name="password" class="search-control" />
+        <br />
+        <br />
+        <input type="reset" class="search-control search-btn" value="RESET" />
+        <input type="submit" class="search-control search-btn" value="LOGIN" />
+        <br />
+        <b>Dont have an account?</b>
+        <a href="@Url.Action("Register", "User")"><i>Resgister</i></a>
+    </form>
+</div>

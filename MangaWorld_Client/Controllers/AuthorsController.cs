@@ -35,48 +35,7 @@ namespace MangaWorld_Client.Controllers
 
             ViewData["CurrSort"] = String.IsNullOrEmpty(sortOpt) ? "timeDes" : sortOpt;
 
-            switch (sortOpt)
-            {
-                case "timeDes":
-                    {
-                        temp.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
-                        temp.Reverse();
-                        break;
-                    }
-                case "timeAsc":
-                    {
-                        temp.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
-                        break;
-                    }
-                case "scoreDes":
-                    {
-                        temp.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
-                        temp.Reverse();
-                        break;
-                    }
-                case "scoreAsc":
-                    {
-                        temp.Sort((x, y) => Utils.getRatingScore(Utils.getRating(x)).CompareTo(Utils.getRatingScore(Utils.getRating(y))));
-                        break;
-                    }
-                case "followDes":
-                    {
-                        temp.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
-                        temp.Reverse();
-                        break;
-                    }
-                case "followAsc":
-                    {
-                        temp.Sort((x, y) => Utils.getBookmarkCount(x).CompareTo(Utils.getBookmarkCount(y)));
-                        break;
-                    }
-                default:
-                    {
-                        temp.Sort((x, y) => x.ReleasedYear.CompareTo(y.ReleasedYear));
-                        temp.Reverse();
-                        break;
-                    }
-            }
+            temp = Utils.sortManga(sortOpt, temp);
 
             ViewData["Author"] = author;
 

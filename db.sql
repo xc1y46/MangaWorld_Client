@@ -145,6 +145,7 @@ GO
 IF OBJECT_ID('dbo.Comment', 'U') IS NOT NULL
   DROP TABLE dbo.Comment
 CREATE TABLE Comment(
+	CommentId INT PRIMARY KEY IDENTITY (1,1),
 	UserId INT FOREIGN KEY REFERENCES [User](UserId) NOT NULL,
 	CommentContent NVARCHAR(200) NOT NULL,
 	MangaId NVARCHAR(40) FOREIGN KEY REFERENCES Manga(MangaId) NOT NULL,
@@ -778,5 +779,10 @@ INSERT INTO Rating(MangaId, UserId, Score) VALUES
 (N'M_JP_GoblinSlay_Nov', 4, 5),
 (N'M_JP_FiveCenti_Nov', 2, 2),
 (N'M_JP_Anohana_Nov', 2, 5)
+
+INSERT INTO Comment(MangaId, UserId, CommentContent, CommentDate) VALUES
+(N'M_JP_CSM', 1, N'NOOOO POOOOWEEEER', CAST(N'2022-11-09' AS DateTime)),
+(N'M_JP_CSM', 2, N'I hate you fujumoto', CAST(N'2022-11-11' AS DateTime)),
+(N'M_JP_CSM', 3, N'Denji cant even have one normal girl lmao', CAST(N'2022-11-22' AS DateTime))
 
 GO
