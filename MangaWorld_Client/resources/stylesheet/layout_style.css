@@ -137,13 +137,13 @@ body {
 }
 
 .top-nav {
+    display: flex;
     margin: 5px auto 5px auto;
     justify-content: center;
     align-items: center;
 }
 
 .layout-head {
-    display: flex;
     height: 65px;
     z-index: 2;
     background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));
@@ -208,11 +208,24 @@ body {
         width: 90%;
     }
 
+.layout-user-area {
+    text-align: left;
+}
+
+.user-menu, .layout-user-acc {
+    text-align: left;
+    display: inline-block;
+}
+
+.layout-user-acc {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
 .user-menu {
     display: inline-block;
     text-decoration: none;
     color: var(--txt);
-    float: right;
     font-size: 30px;
     padding: 10px;
     border-radius: 15px;
@@ -266,11 +279,3 @@ body {
     .side-nav-opt:hover {
         background-color: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
     }
-
-.layout-user-area {
-    text-align: left;
-}
-
-layout-user-area a, layout-user-area h4 {
-    display: inline-block;
-}

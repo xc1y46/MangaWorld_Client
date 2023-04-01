@@ -26,7 +26,7 @@
         chapters = (PagedList.IPagedList<Chapter>)ViewData["Chapter"];
     }
 }
-<link href="~/resources/css/manga_style.css" rel="stylesheet" />
+<link href="~/resources/stylesheet/manga_style.css" rel="stylesheet" />
 <script src="~/resources/javascript/manga_script.js"></script>
 
 <script>
@@ -257,7 +257,10 @@
                                 {
                                     <i class="fa fa-trash del-comment" onclick="location.href='@Url.Action("DeleteComment", "Users", new { commentId = c.CommentId, mangaId = Model.MangaId })'"></i>
                                 }
-                                <span class="comment-date">@c.CommentDate.ToString("d")</span>
+                                <span class="comment-date">
+                                    <i class="fa fa-clock-o"></i>
+                                    @c.CommentDate.ToString("d")
+                                </span>
                                 <hr />
                                 <p class="manga-comment-content">
                                     @c.CommentContent

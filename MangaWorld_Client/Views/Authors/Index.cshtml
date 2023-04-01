@@ -8,7 +8,7 @@
     string path = Utils.Gallery;
     Author author = (Author)ViewData["Author"];
 }
-<link href="~/resources/css/author_style.css" rel="stylesheet" />
+<link href="~/resources/stylesheet/author_style.css" rel="stylesheet" />
 <script>
     $(document).ready(function () {
         $('#author-sort-opt').val('@ViewData["CurrSort"]');
@@ -20,7 +20,7 @@
 
 <div class="container author-body">
     <div class="row author-head">
-        <i class="fa fa-user-circle"></i>
+        <i class="fa fa-user-edit"></i>
         <b class="author-title">@author.AuthorName</b>
 
         @if (!String.IsNullOrEmpty(author.Biography))

@@ -3,15 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    @*<script type="text/javascript">(function () { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })();</script>*@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MangaWorld</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/4f7b19f13b.js" crossorigin="anonymous"></script>
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/resources/css/layout_style.css" rel="stylesheet" />
     <script src="~/resources/javascript/layout_script.js"></script>
+    <link href="~/resources/css/all.css" rel="stylesheet" />
+
+    <link href="~/resources/stylesheet/layout_style.css" rel="stylesheet" />
 </head>
 <body>
     <div>
@@ -94,16 +95,16 @@
                             <i id="nav-side-toggler" class="fa fa-bars"></i>
                             @Html.ActionLink("MangaWorld", "Index", "Home", null, new { @class = "home-logo", @style = "margin-top: 20px;" })
                         </div>
-                        <div class="col-md-5 nav-search">
+                        <div class="col-md-6 nav-search">
                             <form action="@Url.Action("Search", "Home")" method="post">
                                 <i class="fa fa-search"></i>
                                 <input name="nameSrc" class="search-txt" type="text" placeholder="Search" />
                                 <input type="submit" hidden />
                             </form>
                         </div>
-                        <div class="col-md-3 layout-user-area">
-                            <i class="fa fa-user-circle user-menu" onclick="location.href='@Url.Action("Details", "Users")'"></i>
-                            <h4 class="layout-user-acc">@Session["UserName"]</h4>
+                        <div class="col-md-2 layout-user-area">
+                            <i class="far fa-user-circle user-menu" onclick="location.href='@Url.Action("Details", "Users")'"></i>
+                            <span class="layout-user-acc">@Session["UserName"]</span>
                         </div>
                     </nav>
                 </header>
