@@ -15,8 +15,9 @@ namespace MangaWorld_Client.Controllers
         public ActionResult Index()
         {
             if (!Utils.optionChecking()) Utils.setOptions();
-            var manga = db.Manga.Where(m => m.IsPublished && !m.Deleted).Include(m => m.Author).Include(m => m.Language).Include(m => m.Status1);
-            return View(manga.ToList());
+            var manga = db.Manga.Where(m => m.IsPublished && !m.Deleted).Include(m => m.Author).Include(m => m.Language).Include(m => m.Status1).ToList();
+            manga = Utils.sortManga("scoreDes", manga);
+            return View(manga);
         }
 
         public ActionResult Search(string nameSrc, string langSrc, string statusSrc, string genreSrc, int? PageSize, int? Page, string sortOpt)

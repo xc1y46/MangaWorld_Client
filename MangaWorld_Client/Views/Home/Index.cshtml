@@ -1,26 +1,28 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout1.cshtml";
-}
+﻿@model IEnumerable<MangaWorld_Client.Models.Manga>
 @using MangaWorld_Client.Controllers;
-@model IEnumerable<MangaWorld_Client.Models.Manga>
+
+@{
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+    string path = Utils.Gallery;
+    int mangaCount = 5;
+}
 
 <div class="container">
     @foreach (var item in Model)
     {
-        string path = Utils.Gallery + item.MangaPath + "/Art/Cover_Art.png";
-    <div class="card col-md-6" style="height: 320px; width: 18rem; border: 1px solid var(--mainCol); margin: 20px; padding: 40px">
-        <img class="card-img-top" src="@path" alt="Card image cap" width="70px">
-        <div class="card-body">
-            <h5 class="card-title">
-                <b>
-                    @item.Title
-                </b>
-            </h5>
-            <p class="card-text">
-                @item.Author.AuthorName
-            </p>
-            @Html.ActionLink("Detail", "Index", "Mangas", new { mangaId = item.MangaId }, null)
+        <div class="card col-md-6" style="height: 320px; width: 18rem; border: 1px solid var(--mainCol); margin: 20px; padding: 40px">
+            <img class="card-img-top" src="@Utils.Gallery@item.MangaPath@Utils.CoverArt" alt="Card image cap" width="70px">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <b>
+                        @item.Title
+                    </b>
+                </h5>
+                <p class="card-text">
+                    @item.Author.AuthorName
+                </p>
+                @Html.ActionLink("Detail", "Index", "Mangas", new { mangaId = item.MangaId }, null)
+            </div>
         </div>
-    </div>
     }
 </div>

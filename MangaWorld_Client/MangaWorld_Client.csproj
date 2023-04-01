@@ -173,12 +173,14 @@
     <Content Include="resources\css\author_style.css" />
     <Content Include="resources\css\chapter_style.css" />
     <Content Include="resources\css\genre_style.css" />
+    <Content Include="resources\css\home_style.css" />
     <Content Include="resources\css\layout_style.css" />
     <Content Include="resources\css\manga_style.css" />
     <Content Include="resources\css\popular_style.css" />
     <Content Include="resources\css\scanteam_style.css" />
     <Content Include="resources\css\search_style.css" />
     <Content Include="resources\css\user_style.css" />
+    <Content Include="resources\javascript\home_script.js" />
     <Content Include="resources\javascript\layout_script.js" />
     <Content Include="resources\javascript\manga_script.js" />
     <Content Include="resources\javascript\search_script.js" />
