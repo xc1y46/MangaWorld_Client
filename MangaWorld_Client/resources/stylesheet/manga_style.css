@@ -70,11 +70,6 @@
 .manga-stat-item {
     color: var(--mainCol);
     font-size: 18px;
-    margin-right: 7px;
-}
-
-.manga-stat-item span {
-    color: var(--txt);
 }
 
 .manga-stats-area b{

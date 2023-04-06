@@ -41,11 +41,11 @@ namespace MangaWorld_Client.Controllers
         {
             ContextModel db = new ContextModel();
 
-            var temp = db.Chapter.AsNoTracking().Where(c => c.MangaId == manga.MangaId).OrderByDescending(c => c.ChapterOrder).ToList();
-
-            db.Dispose();
+            var temp = db.Chapter.AsNoTracking().Include(c => c.ScanTeam).Where(c => c.MangaId == manga.MangaId).OrderByDescending(c => c.ChapterOrder).ToList();
 
             if (!firstOrLast) temp.Reverse();
+
+            db.Dispose();
 
             return temp[0];
         }
@@ -121,6 +121,12 @@ namespace MangaWorld_Client.Controllers
         {
             switch (SortOpt)
             {
+                case "recentUpdate":
+                    {
+                        mangas.Sort((x, y) => (Utils.getLastOrFirstChapters(x, true).UploadDate).CompareTo(Utils.getLastOrFirstChapters(y, true).UploadDate));
+                        mangas.Reverse();
+                        break;
+                    }
                 case "mostInteract":
                     {
                         mangas.Sort((x, y) => (Utils.getRating(x).Count + x.Comment.Count).CompareTo(Utils.getRating(y).Count + y.Comment.Count));

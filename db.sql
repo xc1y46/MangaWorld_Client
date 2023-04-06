@@ -169,6 +169,9 @@ CREATE TABLE Report(
 ON [PRIMARY]
 GO
 
+INSERT INTO [Admin](AdminName, AdminPassword) VALUES
+(N'Long', N'40bd001563085fc35165329ea1ff5c5ecbdbbeef') --123
+
 INSERT INTO [Language](LanguageId, LanguageName, CountryFlag) VALUES
 (N'VN', N'Vietnamese', N'VN.png'),
 (N'EN', N'English', N'EN.png'),

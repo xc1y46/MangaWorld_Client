@@ -5,7 +5,7 @@
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
     string path = Utils.Gallery;
-    int resultCount = 3;
+    int resultCount = 5;
 }
 <link href="~/resources/stylesheet/popular_style.css" rel="stylesheet" />
 
@@ -20,7 +20,9 @@
                 sortModel.Add(tempModel[i]);
             }
             sortModel = Utils.sortManga("scoreDes", sortModel);
-            foreach(Manga m in sortModel)
+        }
+        <div class="pop-manga-area">
+            @foreach (Manga m in sortModel)
             {
                 <div class="pop-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
                     <div class="pop-manga-cover">
@@ -54,7 +56,7 @@
                         </i>
                         <br />
                         @foreach (Genre g in Utils.getGenre(m))
-                {
+                        {
                             <div class="pop-manga-genre genre-level-@g.GenreLevel">
                                 <b>@g.GenreId</b>
                             </div>
@@ -62,7 +64,7 @@
                     </div>
                 </div>
             }
-        }
+        </div>
     </div>
 
     <div class="pop-content pop-top-interact">
@@ -74,7 +76,9 @@
             {
                 sortModel.Add(tempModel[i]);
             }
-            foreach (Manga m in sortModel)
+        }
+        <div class="pop-manga-area">
+            @foreach (Manga m in sortModel)
             {
                 <div class="pop-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
                     <div class="pop-manga-cover">
@@ -116,7 +120,7 @@
                     </div>
                 </div>
             }
-        }
+        </div>
     </div>
 
     <div class="pop-content pop-top-rating">
@@ -128,7 +132,9 @@
             {
                 sortModel.Add(tempModel[i]);
             }
-            foreach (Manga m in sortModel)
+        }
+        <div class="pop-manga-area">
+            @foreach (Manga m in sortModel)
             {
                 <div class="pop-manga" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = m.MangaId })'">
                     <div class="pop-manga-cover">
@@ -170,6 +176,6 @@
                     </div>
                 </div>
             }
-        }
+        </div>
     </div>
 </div>

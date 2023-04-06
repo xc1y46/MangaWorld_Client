@@ -193,7 +193,6 @@ namespace MangaWorld_Client.Controllers
                     user.Bookmarks = user.Bookmarks.Replace("**", "*");
                     db.Entry(user).State = EntityState.Modified;
                     db.SaveChanges();
-
                 }
                 else
                 {

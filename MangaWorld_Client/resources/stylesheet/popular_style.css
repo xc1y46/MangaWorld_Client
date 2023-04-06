@@ -1,13 +1,19 @@
 ﻿.pop-content{
-    border: 5px dashed var(--mainCol);
+    border: 2px dashed var(--mainCol);
     border-radius: 30px;
     padding: 20px;
-    margin: 20px
+    margin: 20px;
+    height: 630px;
 }
 
 .pop-content h1 {
     border-bottom: 2px solid #302c2c;
     font-style: italic;
+}
+
+.pop-manga-area{
+    height: 80%;
+    overflow-y: scroll;
 }
 
 .pop-manga {

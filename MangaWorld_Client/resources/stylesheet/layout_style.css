@@ -17,12 +17,11 @@
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 90%;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    margin: 3px 0 3px 0;
     background: rgb( calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)), calc(var(--bg-r) - var(--offset2)) );
     border-radius: 10px;
 }
@@ -111,6 +110,10 @@
     .search-btn:active {
         background-color: rgb( calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)), calc(var(--bg-r) - var(--offset1)));
     }
+
+img{
+    border-radius: 6px;
+}
 
 body {
     background-color: rgb(var(--bg-r), var(--bg-g), var(--bg-b));

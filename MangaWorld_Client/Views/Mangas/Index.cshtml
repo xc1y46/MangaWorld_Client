@@ -63,32 +63,29 @@
                 }
             </div>
             <br /><br />
-            <div class="manga-stats-area stat-rating">
-                <div class="rating-detail-tooltip">
-                    <ul>
-                        @foreach (var x in ratingDetail)
-                        {
-                            <li>
-                                <b>@x.Key <i class="manga-stat-item fa fa-star"></i>: @x.Value</b>
-                            </li>
-                            <hr />
-                        }
-                    </ul>
-                </div>
-                <i class="manga-stat-item fa fa-star">
-                    <span>@score.ToString("0.00")</span>
-                </i>
-                <i class="manga-stat-item fa fa-bookmark">
-                    <span>@Utils.getBookmarkCount(Model)</span>
-                </i>
-                <i class="manga-stat-item fa fa-comments">
-                    <span>@Model.Comment.Count</span>
-                </i>
-                &nbsp;
-                <i class="manga-pub-status status-@Model.Status fa fa-circle"></i>
-                <b>PUBLICATION: @Model.ReleasedYear, </b>
-                <i>@Model.Status1.StatusName</i>
-            </div>
+                  <div class="manga-stats-area stat-rating">
+                      <div class="rating-detail-tooltip">
+                          <ul>
+                              @foreach (var x in ratingDetail)
+                              {
+                                  <li>
+                                      <b>@x.Key <i class="manga-stat-item fa fa-star"></i>: @x.Value</b>
+                                  </li>
+                                  <hr />
+                              }
+                          </ul>
+                      </div>
+                      <i class="manga-stat-item fa fa-star"></i>
+                      <span>@score.ToString("0.00")</span>
+                      <i class="manga-stat-item fa fa-bookmark"></i>
+                      <span>@Utils.getBookmarkCount(Model)</span>
+                      <i class="manga-stat-item fa fa-comments"></i>
+                      <span>@Model.Comment.Count</span>
+                      &nbsp;
+                      <i class="manga-pub-status status-@Model.Status fa fa-circle"></i>
+                      <b>PUBLICATION: @Model.ReleasedYear, </b>
+                      <i>@Model.Status1.StatusName</i>
+                  </div>
             <br /><br />
             <div class="manga-genre-area">
                 @foreach (Genre g in genres)

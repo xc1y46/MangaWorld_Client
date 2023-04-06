@@ -1,30 +1,201 @@
 ﻿@model IEnumerable<MangaWorld_Client.Models.Manga>
 @using MangaWorld_Client.Controllers;
+@using MangaWorld_Client.Models;
 
 @{
     Layout = "~/Views/Shared/_Layout1.cshtml";
     string path = Utils.Gallery;
-    int mangaCount = 5;
+    int mangaCount = 12;
 }
 <link href="~/resources/stylesheet/home_style.css" rel="stylesheet" />
 <script src="~/resources/javascript/home_script.js"></script>
 
 <div class="container">
-    @foreach (var item in Model)
-    {
-        <div class="card col-md-6" style="height: 320px; width: 18rem; border: 1px solid var(--mainCol); margin: 20px; padding: 40px">
-            <img class="card-img-top" src="@Utils.Gallery@item.MangaPath@Utils.CoverArt" alt="Card image cap" width="70px">
-            <div class="card-body">
-                <h5 class="card-title">
-                    <b>
-                        @item.Title
-                    </b>
-                </h5>
-                <p class="card-text">
-                    @item.Author.AuthorName
-                </p>
-                @Html.ActionLink("Detail", "Index", "Mangas", new { mangaId = item.MangaId }, null)
+    <h2 class="home-heading">Trending</h2>
+    <br />
+    <div class="home-trending-area">
+        @{
+            List<Manga> temp = Model.OrderByDescending(m => m.ReleasedYear).ToList();
+            List<Manga> TempModel_trend = new List<Manga>();
+            for (int i = 0; i < mangaCount - 2; i++)
+            {
+                TempModel_trend.Add(temp[i]);
+            }
+            TempModel_trend = Utils.sortManga("scoreDes", TempModel_trend);
+        }
+
+        @for (int i = 0; i < TempModel_trend.Count; i++)
+        {
+            Manga manga = TempModel_trend[i];
+            <div class="home-trending-item slider-fade row" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })'">
+                <div class="home-trending-art-area col-md-4">
+                    <img class="home-trending-img" src="@path@manga.MangaPath@Utils.CoverArt" />
+                </div>
+                <div class="home-trending-detail-area col-md-8">
+                    <div>
+                        <h1 class="home-trending-title">
+                            @manga.Title
+                            <img class="home-lang-flag flag-@manga.LanguageId" />
+                            <br />
+                            <b class="home-trending-author">@manga.Author.AuthorName</b>
+                        </h1>
+                    </div>
+                    <div>
+                        <span class="home-trending-sumary">@manga.Summary</span>
+                    </div>
+                </div>
             </div>
+        }
+
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+
+        <br /><br />
+        <div class="home-trending-paging">
+            @for (int i = 0; i < TempModel_trend.Count; i++)
+            {
+                <span class="dot" onclick="currentSlide(@i+1)"></span>
+            }
         </div>
-    }
+    </div>
+
+   
+
+    <br />
+    <h2 class="home-heading">Seasonal</h2>
+    <br />
+    <div class="home-season-scroller">
+        @{
+            var TempModel_season = Model.OrderByDescending(m => m.ReleasedYear).ToList();
+            for (int i = 0; i < mangaCount - 4; i++)
+            {
+                Manga manga = TempModel_season[i];
+                <div class="home-season-item" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })'">
+                    <div class="home-season-art">
+                        <img class="home-season-cover-img" src="@path@manga.MangaPath@Utils.CoverArt" alt="CoverImg" />
+                    </div>
+                    <div class="home-season-detail">
+                        <b class="home-season-title">
+                            <img class="home-lang-flag flag-@manga.LanguageId" />
+                            @if (manga.Title.Length > 48)
+                            {
+                                string shortTitle = manga.Title.Substring(0, 48) + "...";
+                                <a href="@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })">@shortTitle</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })">@manga.Title</a>
+                            }
+                        </b>
+                        <br />
+                        @if (manga.Summary.Length > 200)
+                        {
+                            string shortSum = manga.Summary.Substring(0, 200) + "...";
+                            <span class="home-season-summary">@shortSum</span>
+                        }
+                        else
+                        {
+                            <span class="home-season-summary">@manga.Summary</span>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <br />
+    <h2 class="home-heading">Recently updated</h2>
+    <br />
+
+    <div class="home-recent-area row">
+        @{ var TempModel_recent = Utils.sortManga("recentUpdate", Model.ToList()); }
+        @for (int i = 0; i < mangaCount; i++)
+        {
+            Manga manga = TempModel_recent[i];
+            Chapter lastChap = Utils.getLastOrFirstChapters(manga, true);
+            <div class="col-md-3 home-recent-inner-area">
+                <div class="home-recent-item" onclick="location.href='@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })'">
+                    <div class="home-recent-art">
+                        <img class="home-recent-cover-img" src="@path@manga.MangaPath@Utils.CoverArt" alt="coverArt" />
+                    </div>
+
+                    <div class="home-recent-detail">
+                        @if (manga.Title.Length > 43)
+                        {
+                            string shortTitle = manga.Title.Substring(0, 43) + "...";
+                            <a class="home-recent-title" href="@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })">@shortTitle</a>
+                        }
+                        else
+                        {
+                            <a class="home-recent-title" href="@Url.Action("Index", "Mangas", new { mangaId = manga.MangaId })">@manga.Title</a>
+                        }
+
+                        <br />
+                        <img class="home-lang-flag flag-@manga.LanguageId" />
+                        <span>Chapter @lastChap.ChapterOrder</span>
+                        @if (lastChap.ChapterTitle.Length > 13)
+                        {
+                            string shortTitle = lastChap.ChapterTitle.Substring(0, 13) + "...";
+                            <span>@shortTitle</span>
+                        }
+                        else
+                        {
+                            <span>@lastChap.ChapterTitle</span>
+                        }
+
+                        <br />
+                        <i class="fa fa-clock-o"></i>
+                        <span>@lastChap.UploadDate.ToString("d")</span>
+                        <br />
+
+                        <i class="fa fa-users"></i>
+                        @if (lastChap.ScanTeam.TeamName.Length > 24)
+                        {
+                            string shortTeam = lastChap.ScanTeam.TeamName.Substring(0, 24) + "...";
+                            <a class="home-recent-scanteam" href="@Url.Action("Detail", "ScanTeams", new { scanId = lastChap.ScanTeamId })">@shortTeam</a>
+                        }
+                        else
+                        {
+                            <a class="home-recent-scanteam" href="@Url.Action("Detail", "ScanTeams", new { scanId = lastChap.ScanTeamId })">@lastChap.ScanTeam.TeamName</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
 </div>
+
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = $(".home-trending-item");
+        let dots = $(".dot");
+
+        if (n > slides.length) slideIndex = 1
+
+        if (n < 1) slideIndex = slides.length
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+</script>
